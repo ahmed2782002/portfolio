@@ -5,16 +5,15 @@ import 'package:flutter/material.dart';
 import '../../core/extensions/context_extensions.dart';
 import '../../core/theme/app_colors.dart';
 
-/// The page's quiet background texture: a blueprint grid that fades out
-/// downward, plus two very low-alpha washes in indigo and teal.
+/// Developer & Tech ambient backdrop texture.
 ///
-/// It is painted once into a [RepaintBoundary] and never animates — the depth
-/// in the layout comes from content moving over it, not from the backdrop
-/// moving on its own.
+/// Features a high-tech blueprint dot-and-crosshair matrix, floating syntax/code
+/// tokens (`</>`, `{ }`, `//`, `=>`, `0101`, `const`, `fn()`), and cyber
+/// emerald & amber glow washes.
 class AmbientBackdrop extends StatelessWidget {
   const AmbientBackdrop({
     super.key,
-    this.gridSpacing = 64,
+    this.gridSpacing = 56,
     this.fadeFrom = 0.0,
     this.showWashes = true,
     this.parallax = Offset.zero,
@@ -23,7 +22,7 @@ class AmbientBackdrop extends StatelessWidget {
   /// Grid pitch in logical pixels.
   final double gridSpacing;
 
-  /// Fraction of the height at which the grid starts fading out.
+  /// Fraction of the height at which the pattern starts fading out.
   final double fadeFrom;
 
   final bool showWashes;
@@ -35,7 +34,7 @@ class AmbientBackdrop extends StatelessWidget {
   Widget build(BuildContext context) {
     return RepaintBoundary(
       child: CustomPaint(
-        painter: _BackdropPainter(
+        painter: _TechBackdropPainter(
           colors: context.colors,
           gridSpacing: gridSpacing,
           fadeFrom: fadeFrom,
@@ -49,8 +48,8 @@ class AmbientBackdrop extends StatelessWidget {
   }
 }
 
-class _BackdropPainter extends CustomPainter {
-  _BackdropPainter({
+class _TechBackdropPainter extends CustomPainter {
+  _TechBackdropPainter({
     required this.colors,
     required this.gridSpacing,
     required this.fadeFrom,
@@ -64,17 +63,34 @@ class _BackdropPainter extends CustomPainter {
   final bool showWashes;
   final Offset parallax;
 
+  static const List<String> _codeTokens = [
+    '</>',
+    '{ }',
+    '//',
+    '=>',
+    '0101',
+    'const',
+    'fn()',
+    '[ ]',
+    ';',
+    'async',
+    'git',
+    '&&',
+    'state',
+    'build()',
+  ];
+
   @override
   void paint(Canvas canvas, Size size) {
     if (showWashes) _paintWashes(canvas, size);
-    _paintGrid(canvas, size);
+    _paintTechPattern(canvas, size);
   }
 
   void _paintWashes(Canvas canvas, Size size) {
-    final indigoCentre = Offset(size.width * 0.78, size.height * 0.18) + parallax;
-    final tealCentre =
-        Offset(size.width * 0.12, size.height * 0.72) - parallax * 0.6;
-    final radius = math.max(size.width, size.height) * 0.55;
+    final emeraldCentre = Offset(size.width * 0.82, size.height * 0.16) + parallax;
+    final amberCentre =
+        Offset(size.width * 0.14, size.height * 0.68) - parallax * 0.6;
+    final radius = math.max(size.width, size.height) * 0.52;
 
     void wash(Offset centre, Color color, double alpha) {
       final rect = Rect.fromCircle(center: centre, radius: radius);
@@ -87,26 +103,83 @@ class _BackdropPainter extends CustomPainter {
       );
     }
 
-    wash(indigoCentre, colors.primary, colors.isDark ? 0.13 : 0.10);
-    wash(tealCentre, colors.secondary, colors.isDark ? 0.10 : 0.07);
+    // Emerald primary glow & Warm Amber secondary glow (NO blue, NO purple)
+    wash(emeraldCentre, colors.primary, colors.isDark ? 0.12 : 0.08);
+    wash(amberCentre, colors.secondary, colors.isDark ? 0.09 : 0.06);
   }
 
-  void _paintGrid(Canvas canvas, Size size) {
-    final line = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 1
-      ..color = colors.textPrimary.withValues(alpha: colors.isDark ? 0.05 : 0.045);
-
-    // Fade the grid out toward the bottom so content sits on clean ground.
+  void _paintTechPattern(Canvas canvas, Size size) {
+    // Fade the pattern out toward the bottom so content sits on clean ground.
     canvas.saveLayer(Offset.zero & size, Paint());
 
-    for (double x = 0; x <= size.width; x += gridSpacing) {
-      canvas.drawLine(Offset(x, 0), Offset(x, size.height), line);
-    }
-    for (double y = 0; y <= size.height; y += gridSpacing) {
-      canvas.drawLine(Offset(0, y), Offset(size.width, y), line);
+    final crosshairPaint = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 1.0
+      ..color = colors.primary.withValues(alpha: colors.isDark ? 0.14 : 0.10);
+
+    final dotPaint = Paint()
+      ..style = PaintingStyle.fill
+      ..color = colors.textPrimary.withValues(alpha: colors.isDark ? 0.07 : 0.05);
+
+    const crossSize = 3.5;
+
+    // 1. Tech Matrix Grid with micro-crosshairs and grid dots
+    int colIndex = 0;
+    for (double x = gridSpacing / 2; x <= size.width; x += gridSpacing) {
+      int rowIndex = 0;
+      for (double y = gridSpacing / 2; y <= size.height; y += gridSpacing) {
+        // Draw crosshair at every 2nd intersection, dot at others
+        if ((colIndex + rowIndex) % 2 == 0) {
+          canvas.drawLine(
+            Offset(x - crossSize, y),
+            Offset(x + crossSize, y),
+            crosshairPaint,
+          );
+          canvas.drawLine(
+            Offset(x, y - crossSize),
+            Offset(x, y + crossSize),
+            crosshairPaint,
+          );
+        } else {
+          canvas.drawCircle(Offset(x, y), 1.0, dotPaint);
+        }
+        rowIndex++;
+      }
+      colIndex++;
     }
 
+    // 2. Floating Programmer & Code Tokens
+    final tokenStyle = TextStyle(
+      fontFamily: 'JetBrainsMono',
+      fontSize: 10.5,
+      fontWeight: FontWeight.w500,
+      color: colors.primary.withValues(alpha: colors.isDark ? 0.10 : 0.07),
+      letterSpacing: 0.5,
+    );
+
+    final double tokenStepX = gridSpacing * 3.5;
+    final double tokenStepY = gridSpacing * 2.8;
+    int tokenIndex = 0;
+
+    for (double x = gridSpacing * 1.5; x < size.width - 40; x += tokenStepX) {
+      for (double y = gridSpacing * 1.2; y < size.height - 40; y += tokenStepY) {
+        final token = _codeTokens[tokenIndex % _codeTokens.length];
+        final textSpan = TextSpan(text: token, style: tokenStyle);
+        final textPainter = TextPainter(
+          text: textSpan,
+          textDirection: TextDirection.ltr,
+        )..layout();
+
+        // Slight deterministic offset based on position
+        final offsetX = x + (math.sin(tokenIndex * 2.1) * 16);
+        final offsetY = y + (math.cos(tokenIndex * 1.7) * 12);
+
+        textPainter.paint(canvas, Offset(offsetX, offsetY));
+        tokenIndex++;
+      }
+    }
+
+    // 3. Smooth bottom fade gradient
     canvas.drawRect(
       Offset.zero & size,
       Paint()
@@ -123,10 +196,11 @@ class _BackdropPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(_BackdropPainter old) =>
+  bool shouldRepaint(_TechBackdropPainter old) =>
       old.colors != colors ||
       old.gridSpacing != gridSpacing ||
       old.fadeFrom != fadeFrom ||
       old.showWashes != showWashes ||
       old.parallax != parallax;
 }
+

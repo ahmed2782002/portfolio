@@ -1,4 +1,4 @@
-import 'package:flutter/painting.dart';
+import 'package:flutter/material.dart';
 
 import 'models/portfolio_models.dart';
 
@@ -20,23 +20,23 @@ abstract final class PortfolioData {
         'I build Flutter apps for booking, delivery and social products — '
         'with a particular strength in RTL, Arabic-first interfaces.',
     summary:
-        'Junior Flutter Developer with over a year of professional experience '
-        'delivering mobile applications across consultation/service-booking, '
-        'property booking, and delivery domains. Skilled in BLoC/Cubit state '
-        'management, Clean Architecture, and RESTful API integration, with '
-        'particular strength in building RTL-aware, Arabic-first interfaces. '
-        'Comfortable moving across different app domains and adapting quickly '
-        "to each project's structure and business logic.",
-    location: 'El Fayoum, Egypt',
+        'Junior Flutter Developer with 1+ year of professional experience '
+        'delivering mobile applications across consultation/service booking, '
+        'property booking, delivery, and social domains. Skilled in BLoC/Cubit state '
+        'management, Clean Architecture, and RESTful API integration, with experience '
+        'building multilingual, RTL-aware user interfaces. Comfortable moving across '
+        "different app domains and adapting quickly to each project's structure "
+        'and business logic.',
+    location: 'Cairo, Egypt',
     email: 'ahmedesam2772@gmail.com',
     phone: '+20 101 783 7378',
     photoAsset: 'assets/images/profile/ahmed.jpg',
-    cvAsset: 'assets/docs/Ahmed_Esam_Flutter_Developer_CV.pdf',
-    cvFileName: 'Ahmed_Esam_Flutter_Developer_CV.pdf',
+    cvAsset: 'assets/docs/Ahmed_Esam_Junior_Flutter_Developer_CV.pdf',
+    cvFileName: 'Ahmed_Esam_Junior_Flutter_Developer_CV.pdf',
     stats: [
-      Stat(value: '+1', label: 'year in production'),
-      Stat(value: '5', label: 'apps contributed to'),
-      Stat(value: '3', label: 'product domains'),
+      Stat(value: '1+', label: 'year of experience'),
+      Stat(value: '12+', label: 'apps in production'),
+      Stat(value: '4', label: 'product domains'),
     ],
     focusAreas: [
       'Flutter',
@@ -82,27 +82,16 @@ abstract final class PortfolioData {
   // ---------------------------------------------------------------------------
   static const List<ExperienceEntry> experience = [
     ExperienceEntry(
-      company: 'NahrDevelopment',
+      company: 'Nahr Development',
       role: 'Junior Flutter Developer',
-      period: 'August 2025 — Present',
-      location: 'El Fayoum, Egypt',
+      period: 'Aug. 2025 — Present',
+      location: 'Cairo, Egypt',
       workMode: 'Remote',
-      products: ['Qarar', 'Book Iraq', 'Rawnaq'],
+      products: ['Qarar', 'Booking App', 'Fresh Driver', 'Quartz', 'Rawnaq'],
       highlights: [
-        'Develop and maintain features across multiple Flutter applications, '
-            'including Qarar, Booking, and Rawnaq, using BLoC/Cubit state '
-            'management and Clean Architecture.',
-        'Build fully stateless, testable UI screens with a feature-based '
-            'folder structure and consistent state handling for loading, error '
-            'and empty states.',
-        'Implement RTL-aware, Arabic-first layouts, resolving '
-            'direction-dependent positioning and localized font rendering '
-            'issues.',
-        'Integrate RESTful APIs with Dio, including pagination, '
-            'pull-to-refresh, and secure payment and notification flows.',
-        'Debug and resolve async lifecycle issues in Cubits and coordinate '
-            'authentication flows involving OTP verification and push '
-            'notification registration.',
+        'Collaborate with the Flutter team, backend developers, and UI/UX designers to implement features and resolve technical issues.',
+        'Build responsive and scalable mobile applications using Flutter, Dart, BLoC/Cubit, Clean Architecture, and RESTful APIs.',
+        'Develop and maintain Flutter applications for clients across the Gulf and Egyptian markets, contributing to features from implementation through release.',
       ],
       technologies: [
         'Flutter',
@@ -112,23 +101,35 @@ abstract final class PortfolioData {
         'Clean Architecture',
         'Dio',
         'REST APIs',
+        'Firebase',
         'FCM',
+        'Google Maps',
         'PayMob',
       ],
     ),
   ];
 
   // ---------------------------------------------------------------------------
-  // Skills — grouped, no invented proficiency levels.
+  // Skills — grouped from CV
   // ---------------------------------------------------------------------------
   static const List<SkillGroup> skillGroups = [
     SkillGroup(
-      title: 'Languages & Frameworks',
-      items: ['Dart', 'Flutter', 'Java', 'Python', 'C++', 'HTML', 'CSS', 'JSON'],
+      title: 'Programming Languages',
+      items: ['Dart', 'Java', 'Python', 'C++', 'HTML', 'CSS', 'JSON'],
+    ),
+    SkillGroup(
+      title: 'Mobile Development',
+      items: [
+        'Flutter',
+        'Flutter Web',
+        'Responsive UI',
+        'RTL / LTR Layouts',
+        'Localization (i18n)',
+      ],
     ),
     SkillGroup(
       title: 'State Management',
-      items: ['BLoC', 'Cubit', 'Provider'],
+      items: ['Bloc', 'Cubit', 'Provider'],
     ),
     SkillGroup(
       title: 'Architecture & Patterns',
@@ -140,45 +141,48 @@ abstract final class PortfolioData {
       ],
     ),
     SkillGroup(
-      title: 'Backend & Integration',
+      title: 'Networking & APIs',
+      items: ['RESTful APIs', 'HTTP', 'Dio'],
+    ),
+    SkillGroup(
+      title: 'Databases & Integrations',
       items: [
-        'RESTful APIs',
-        'HTTP',
-        'Dio',
+        'Hive',
+        'Shared Preferences',
         'Firebase',
         'FCM',
         'Google Maps',
-        'PayMob Payments',
+        'PayMob Payment Integration',
       ],
     ),
     SkillGroup(
-      title: 'UI & Localization',
-      items: [
-        'Responsive UI',
-        'Flutter Web',
-        'RTL / LTR Layouts',
-        'Localization',
-        'i18n',
-      ],
+      title: 'AI-Assisted Development',
+      items: ['Claude', 'ChatGPT', 'Google Gemini', 'GitHub Copilot'],
     ),
     SkillGroup(
-      title: 'Data & Storage',
-      items: ['Hive', 'Shared Preferences'],
-    ),
-    SkillGroup(
-      title: 'Foundations',
-      items: ['OOP', 'Data Structures', 'Algorithms', 'Problem-Solving'],
-    ),
-    SkillGroup(
-      title: 'Tools',
+      title: 'Tools & Platforms',
       items: [
         'Android Studio',
         'VS Code',
         'Postman',
-        'Jira',
         'Git',
         'GitHub',
+        'Jira',
       ],
+    ),
+    SkillGroup(
+      title: 'Concepts & Foundations',
+      items: [
+        'OOP',
+        'Data Structures',
+        'Algorithms',
+        'Problem-Solving',
+        'Agile Methodology',
+      ],
+    ),
+    SkillGroup(
+      title: 'Soft Skills',
+      items: ['Teamwork', 'Attention to Detail', 'Adaptability', 'Creativity'],
     ),
   ];
 
@@ -195,7 +199,7 @@ abstract final class PortfolioData {
       id: 'book-iraq',
       name: 'Book Iraq',
       category: 'Travel & property booking',
-      context: 'NahrDevelopment',
+      context: 'Nahr Development',
       platform: 'iOS · Android',
       role: 'UI development · REST API integration',
       description:
@@ -203,7 +207,8 @@ abstract final class PortfolioData {
           'booking flow and reservation management. I developed UI screens and '
           'integrated RESTful APIs, with recent work on the FCM token flow and '
           'async Cubit lifecycle stability.',
-      tint: Color(0xFF17A398),
+      tint: Color(0xFF0D9488),
+      icon: Icons.domain_rounded,
       bannerAsset: 'assets/images/projects/book_iraq/banner.jpg',
       features: [
         'Hotel search and property listings',
@@ -254,14 +259,15 @@ abstract final class PortfolioData {
       id: 'fresh-driver',
       name: 'Fresh Driver',
       category: 'Delivery & driver logistics',
-      context: 'NahrDevelopment',
+      context: 'Nahr Development',
       platform: 'iOS · Android',
       role: 'REST API integration · Google Maps integration',
       description:
           'Delivery mobile application built with Flutter. I implemented the '
           'RESTful API integration and Google Maps for real-time order tracking '
           'and delivery management.',
-      tint: Color(0xFF2E9E4F),
+      tint: Color(0xFF10B981),
+      icon: Icons.local_shipping_rounded,
       features: [
         'Incoming order queue with accept and decline',
         'Availability toggle that controls new order visibility',
@@ -301,7 +307,7 @@ abstract final class PortfolioData {
       id: 'quartz',
       name: 'Quartz',
       category: 'Social media',
-      context: 'NahrDevelopment',
+      context: 'Nahr Development',
       platform: 'iOS · Android',
       role: 'UI development · REST API integration',
       description:
@@ -309,7 +315,8 @@ abstract final class PortfolioData {
           'posts. It supports creating posts with images or polls, sharing '
           'posts, and a profile section for editing name, nickname and photo. '
           'The interface is Arabic-first and fully RTL.',
-      tint: Color(0xFF6C2BD9),
+      tint: Color(0xFFFF5757),
+      icon: Icons.forum_rounded,
       features: [
         'Posts with comments, likes, sharing and bookmarks',
         'Post composer supporting images or polls',
@@ -353,15 +360,16 @@ abstract final class PortfolioData {
     Project(
       id: 'yourseat',
       name: 'YourSeat',
-      category: 'Seat reservation · Graduation project',
-      context: 'Graduation project · Team-based',
+      category: 'Seat reservation · Cinema',
+      context: 'Graduation project · Grade: A+',
       platform: 'iOS · Android · Flutter Web',
       role: 'Flutter UI · Firebase · AI features · Web admin dashboard',
       description:
           'Seat reservation platform built as a team graduation project. I '
           'contributed to Flutter UI development, Firebase integration, the AI '
           'features and a Flutter Web admin dashboard.',
-      tint: Color(0xFFB5179E),
+      tint: Color(0xFFF97316),
+      icon: Icons.theaters_rounded,
       features: [
         'Onboarding and movie discovery — Now Playing and Coming Soon',
         'Interactive seat map with available, reserved and VIP seats',
@@ -413,46 +421,55 @@ abstract final class PortfolioData {
           'Scheduling platform for voice and video consultations with doctors, '
           'lawyers and financial advisors, including a document upload flow for '
           'charity committees.',
+      icon: Icons.medical_services_rounded,
     ),
     AdditionalProject(
       name: 'Shahy Eissa',
       category: 'Flutter application',
       contribution: 'UI development · REST API integration',
+      icon: Icons.shopping_bag_rounded,
     ),
     AdditionalProject(
       name: 'MAS',
       category: 'Multi-service application',
       contribution: 'Flutter development',
+      icon: Icons.dashboard_customize_rounded,
     ),
     AdditionalProject(
       name: 'Rawnaq',
       category: 'Flutter application',
       contribution: 'UI development',
+      icon: Icons.auto_awesome_rounded,
     ),
     AdditionalProject(
       name: 'Trimly',
       category: 'Flutter application',
       contribution: 'UI development',
+      icon: Icons.content_cut_rounded,
     ),
     AdditionalProject(
       name: 'Full-day-24',
       category: 'Flutter application',
       contribution: 'UI development',
+      icon: Icons.access_time_filled_rounded,
     ),
     AdditionalProject(
       name: 'Car Club',
       category: 'Flutter application',
       contribution: 'UI development',
+      icon: Icons.directions_car_rounded,
     ),
     AdditionalProject(
       name: 'Re3ayaPlus',
       category: 'Flutter application',
       contribution: 'REST API integration',
+      icon: Icons.health_and_safety_rounded,
     ),
     AdditionalProject(
       name: 'Nagaa',
       category: 'Flutter application',
       contribution: 'REST API integration',
+      icon: Icons.storefront_rounded,
     ),
   ];
 
@@ -460,23 +477,23 @@ abstract final class PortfolioData {
   // Credentials
   // ---------------------------------------------------------------------------
   static const Education education = Education(
-    degree: "Bachelor's Degree, Information Technology",
+    degree: "BSc. Degree, Information Technology",
     institution: 'Egyptian E-Learning University (EELU)',
-    period: 'Class of 2025',
-    location: 'El Fayoum, Egypt',
+    period: 'Sept. 2021 – Jun. 2025 · Grade: A+ (Graduation Project: YourSeat)',
+    location: 'Cairo, Egypt',
   );
 
   static const List<Certification> certifications = [
+    Certification(
+      name: 'Flutter Development Diploma',
+      issuer: 'Route IT Training Center',
+      detail: 'Accredited by Egyptian Syndicate of Engineers · 120 hours, 5 practical projects',
+    ),
     Certification(
       name: 'Information Technology Specialist (ITS)',
       issuer: 'Certiport',
     ),
     Certification(name: 'CCNA', issuer: 'Cisco'),
-    Certification(
-      name: 'Flutter Development Diploma',
-      issuer: 'Route Academy',
-      detail: '120 hours · 5 practical projects',
-    ),
   ];
 
   static const List<LanguageSkill> languages = [
@@ -502,7 +519,7 @@ abstract final class PortfolioData {
     ),
     ContactLink(
       label: 'Based in',
-      value: 'El Fayoum, Egypt',
+      value: 'Cairo, Egypt',
       url: '',
       kind: ContactKind.location,
     ),

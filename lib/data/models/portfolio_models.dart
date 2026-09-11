@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/painting.dart' show Color;
+import 'package:flutter/widgets.dart' show IconData;
 
 /// Domain models for everything the site renders.
 ///
@@ -154,6 +155,7 @@ class Project {
     required this.technologies,
     required this.screenshots,
     required this.tint,
+    required this.icon,
     this.bannerAsset,
     this.liveUrl,
     this.sourceUrl,
@@ -179,6 +181,9 @@ class Project {
   /// own product without breaking the site palette.
   final Color tint;
 
+  /// Icon representing the product's domain or function.
+  final IconData icon;
+
   final String? bannerAsset;
 
   /// Not present in the CV — nullable so the buttons simply don't render.
@@ -194,6 +199,7 @@ class AdditionalProject {
     required this.category,
     required this.contribution,
     this.description,
+    this.icon,
   });
 
   final String name;
@@ -204,6 +210,9 @@ class AdditionalProject {
 
   /// Present only where the CV gives one.
   final String? description;
+
+  /// Optional domain icon.
+  final IconData? icon;
 }
 
 @immutable

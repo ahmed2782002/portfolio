@@ -66,10 +66,10 @@ class _ProjectsSectionState extends State<ProjectsSection> {
           SectionHeader(
             index: section.index,
             label: 'Selected work',
-            title: 'Four products,\nshipped end to end.',
-            lead: 'Booking, delivery, social and ticketing — each one a '
-                'different domain, a different team and a different set of '
-                'constraints.',
+            title: 'Four featured products,\nshipped end to end.',
+            lead: 'Consultation, property booking, delivery logistics and social — '
+                'delivering production-ready Flutter applications for clients across '
+                'the Gulf and Egyptian markets.',
           ),
           const SizedBox(height: AppSpacing.xxl),
 
@@ -462,8 +462,37 @@ class _AdditionalCard extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  if (project.icon != null) ...[
+                    Container(
+                      width: 28,
+                      height: 28,
+                      margin: const EdgeInsets.only(right: AppSpacing.sm),
+                      decoration: BoxDecoration(
+                        color: Color.lerp(
+                          colors.surface,
+                          colors.primary.withValues(alpha: 0.12),
+                          t,
+                        ),
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(
+                          color: Color.lerp(
+                            colors.border,
+                            colors.primary.withValues(alpha: 0.35),
+                            t,
+                          )!,
+                        ),
+                      ),
+                      child: Center(
+                        child: Icon(
+                          project.icon,
+                          size: 15,
+                          color: Color.lerp(colors.textSecondary, colors.primary, t),
+                        ),
+                      ),
+                    ),
+                  ],
                   Expanded(
                     child: Text(
                       project.name,
