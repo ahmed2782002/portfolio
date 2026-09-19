@@ -16,6 +16,7 @@ dependencies:
   shared_preferences: ^2.3.3
   # mailto: / tel: / https: launching from the contact section.
   url_launcher: ^6.3.1
+  flutter_svg: ^2.3.0
 
 dev_dependencies:
   flutter_test:
@@ -32,6 +33,7 @@ flutter:
     - assets/images/projects/quartz/
     - assets/images/projects/yourseat/
     - assets/docs/
+    - assets/icons/
 
   fonts:
     # Display / headings — geometric grotesque with a technical character.

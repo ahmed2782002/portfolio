@@ -85,61 +85,73 @@ class AppColors extends ThemeExtension<AppColors> {
   bool get isDark => brightness == Brightness.dark;
 
   // ---------------------------------------------------------------------------
-  // Light — crisp canvas with sage undertones, emerald primary, and warm amber.
-  //
-  // The canvas sits a step below pure white so white cards read as lifted
-  // rather than flush; neutrals carry a faint green cast matching the theme.
+  // The Strict 5-Color Identity:
+  // #A3E4D7 — Modern Mint
+  // #BB8FCE — Lavender Purple
+  // #E6E0F8 — Soft Lavender
+  // #2C3E50 — Dark Charcoal
+  // #FFFFFF — White
+  // ---------------------------------------------------------------------------
+  static const Color modernMint = Color(0xFFA3E4D7);
+  static const Color lavenderPurple = Color(0xFFBB8FCE);
+  static const Color softLavender = Color(0xFFE6E0F8);
+  static const Color darkCharcoal = Color(0xFF2C3E50);
+  static const Color white = Color(0xFFFFFFFF);
+
+  // ---------------------------------------------------------------------------
+  // Light — Soft Lavender (#E6E0F8) canvas, Crisp White (#FFFFFF) section bands & cards,
+  // Dark Charcoal (#2C3E50) typography, Modern Mint (#A3E4D7) & Lavender Purple (#BB8FCE) accents.
   // ---------------------------------------------------------------------------
   static const AppColors light = AppColors(
     brightness: Brightness.light,
-    background: Color(0xFFF8FAF8),
-    backgroundAlt: Color(0xFFEFF3EF),
-    surface: Color(0xFFFFFFFF),
-    card: Color(0xFFFFFFFF),
-    cardHover: Color(0xFFF5F8F5),
-    textPrimary: Color(0xFF121B16),
-    textSecondary: Color(0xFF4C5D54),
-    textTertiary: Color(0xFF86978E),
-    border: Color(0xFFDCE3DE),
-    borderStrong: Color(0xFFC4CFC7),
-    primary: Color(0xFF059669),
-    primaryMuted: Color(0x1A059669),
-    onPrimary: Color(0xFFFFFFFF),
-    secondary: Color(0xFFD97706),
-    secondaryMuted: Color(0x1AD97706),
-    accent: Color(0xFFEA580C),
-    success: Color(0xFF059669),
-    error: Color(0xFFDC2626),
-    shadow: Color(0x0D121B16),
-    scrim: Color(0xCCF8FAF8),
+    background: softLavender,
+    backgroundAlt: white,
+    surface: white,
+    card: white,
+    cardHover: Color(0xFFFAF8FE),
+    textPrimary: darkCharcoal,
+    textSecondary: Color(0xFF4A5D6E),
+    textTertiary: Color(0xFF7A8B99),
+    border: Color(0x33BB8FCE),
+    borderStrong: Color(0x66BB8FCE),
+    primary: modernMint,
+    primaryMuted: Color(0x2AA3E4D7),
+    onPrimary: darkCharcoal,
+    secondary: lavenderPurple,
+    secondaryMuted: Color(0x28BB8FCE),
+    accent: lavenderPurple,
+    success: modernMint,
+    error: Color(0xFFE74C3C),
+    shadow: Color(0x142C3E50),
+    scrim: Color(0xD9E6E0F8),
   );
 
   // ---------------------------------------------------------------------------
-  // Dark — Cyber carbon & matrix emerald with warm amber accents.
-  // No blue, no purple. Ultra-modern developer aesthetic.
+  // Dark — Fitting Deep Charcoal (#1B242F) night canvas, elevated cards (#243241),
+  // White/Lavender text, and luminous Mint & Lavender accents.
   // ---------------------------------------------------------------------------
   static const AppColors dark = AppColors(
     brightness: Brightness.dark,
-    background: Color(0xFF0C100E),
-    backgroundAlt: Color(0xFF111714),
-    surface: Color(0xFF151C18),
-    card: Color(0xFF18221D),
-    cardHover: Color(0xFF202C26),
-    textPrimary: Color(0xFFF2F5F3),
-    textSecondary: Color(0xFF96A69E),
-    textTertiary: Color(0xFF64756D),
-    border: Color(0xFF24332B),
-    borderStrong: Color(0xFF354B3F),
-    primary: Color(0xFF10B981),
-    primaryMuted: Color(0x2410B981),
-    onPrimary: Color(0xFF062117),
-    secondary: Color(0xFFF59E0B),
-    secondaryMuted: Color(0x1FF59E0B),
-    accent: Color(0xFFFF6B4A),
-    success: Color(0xFF10B981),
-    error: Color(0xFFEF4444),
+    background: Color(0xFF1B242F),
+    backgroundAlt: Color(0xFF23303E),
+    surface: Color(0xFF273646),
+    card: Color(0xFF243241),
+    cardHover: Color(0xFF2D3E50),
+    textPrimary: white,
+    textSecondary: softLavender,
+    textTertiary: Color(0xFF9FB2C4),
+    border: Color(0x38BB8FCE),
+    borderStrong: Color(0x66A3E4D7),
+    primary: modernMint,
+    primaryMuted: Color(0x33A3E4D7),
+    onPrimary: Color(0xFF1B242F),
+    secondary: lavenderPurple,
+    secondaryMuted: Color(0x33BB8FCE),
+    accent: modernMint,
+    success: modernMint,
+    error: Color(0xFFE74C3C),
     shadow: Color(0x80000000),
-    scrim: Color(0xD90C100E),
+    scrim: Color(0xE61B242F),
   );
 
   @override

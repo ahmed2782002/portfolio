@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../../../core/constants/app_animations.dart';
 import '../../../core/constants/app_spacing.dart';
 import '../../../core/extensions/context_extensions.dart';
+import '../../../core/theme/app_colors.dart';
 import '../../../data/portfolio_data.dart';
 import '../../../shared/widgets/app_button.dart';
 import '../../../shared/widgets/hover_builder.dart';
@@ -140,12 +141,17 @@ class _Wordmark extends StatelessWidget {
             height: 30,
             alignment: Alignment.center,
             decoration: BoxDecoration(
-              color: Color.lerp(colors.primary, colors.secondary, t * 0.3),
-              borderRadius: AppRadius.brXs,
+              color: Color.lerp(
+                colors.isDark ? colors.primary : colors.textPrimary,
+                colors.isDark ? AppColors.modernMint : const Color(0xFF1E2833),
+                t,
+              ),
+              borderRadius: BorderRadius.circular(8),
               boxShadow: [
                 BoxShadow(
-                  color: colors.primary.withValues(alpha: 0.32 * t),
-                  blurRadius: 16 * t,
+                  color: (colors.isDark ? colors.primary : colors.shadow)
+                      .withValues(alpha: 0.25 * t),
+                  blurRadius: 14 * t,
                   offset: Offset(0, 3 * t),
                 ),
               ],
@@ -153,8 +159,9 @@ class _Wordmark extends StatelessWidget {
             child: Text(
               'AE',
               style: type.labelSmall.copyWith(
-                color: colors.onPrimary,
-                fontWeight: FontWeight.w500,
+                color: colors.isDark ? colors.onPrimary : AppColors.white,
+                fontWeight: FontWeight.w700,
+                fontSize: 12,
               ),
             ),
           ),

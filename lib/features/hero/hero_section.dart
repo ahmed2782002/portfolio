@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import '../../core/constants/app_animations.dart';
 import '../../core/constants/app_spacing.dart';
 import '../../core/extensions/context_extensions.dart';
+import '../../core/theme/app_colors.dart';
 import '../../core/utils/responsive.dart';
 import '../../data/models/portfolio_models.dart';
 import '../../data/portfolio_data.dart';
@@ -338,18 +339,47 @@ class _HeroCopy extends StatelessWidget {
 
         _Rise(
           step(0.16, 0.60),
-          child: Row(
-            children: [
-              Container(width: 28, height: 1, color: colors.primary),
-              const SizedBox(width: AppSpacing.sm),
-              Flexible(
-                child: Text(
-                  profile.role,
-                  style: type.label.copyWith(color: colors.primary),
-                  overflow: TextOverflow.ellipsis,
-                ),
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  AppColors.modernMint.withValues(
+                    alpha: colors.isDark ? 0.22 : 0.35,
+                  ),
+                  AppColors.lavenderPurple.withValues(
+                    alpha: colors.isDark ? 0.22 : 0.25,
+                  ),
+                ],
               ),
-            ],
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(
+                color: AppColors.lavenderPurple.withValues(alpha: 0.45),
+                width: 1.2,
+              ),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  width: 8,
+                  height: 8,
+                  decoration: const BoxDecoration(
+                    color: AppColors.modernMint,
+                    shape: BoxShape.circle,
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  'Flutter Developer',
+                  style: type.label.copyWith(
+                    color: colors.textPrimary,
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: 0.5,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
 

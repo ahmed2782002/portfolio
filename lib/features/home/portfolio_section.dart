@@ -4,10 +4,11 @@
 /// so adding a section is a single-line change.
 enum PortfolioSection {
   home('Home', showInNav: false),
-  about('About'),
-  experience('Experience'),
+  about('About Me'),
   skills('Skills'),
   projects('Projects'),
+  experience('Experience'),
+  services('Services'),
   contact('Contact');
 
   const PortfolioSection(this.label, {this.showInNav = true});

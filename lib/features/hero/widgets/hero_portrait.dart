@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../../core/constants/app_spacing.dart';
 import '../../../core/extensions/context_extensions.dart';
+import '../../../core/theme/app_colors.dart';
 import '../../../data/portfolio_data.dart';
 import '../../../shared/widgets/app_image.dart';
 
@@ -50,49 +51,51 @@ class HeroPortrait extends StatelessWidget {
       child: Stack(
         clipBehavior: Clip.none,
         children: [
-          // 1. Offset outline — gives the composition depth before any image
-          //    has loaded, and reads as a registration mark.
+          // 1. Arched pastel backing aura plate
           Positioned(
-            left: -18 + parallax.dx * 0.35,
-            top: 22 + parallax.dy * 0.35,
-            width: width,
-            height: height,
+            left: -12 + parallax.dx * 0.3,
+            top: -12 + parallax.dy * 0.3,
+            width: width + 24,
+            height: height + 20,
             child: Opacity(
-              opacity: entrance * 0.9,
+              opacity: entrance * 0.85,
               child: DecoratedBox(
                 decoration: BoxDecoration(
-                  borderRadius: AppRadius.brXl,
-                  border: Border.all(color: colors.primary.withValues(alpha: 0.42)),
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.circular((width + 24) / 2),
+                    bottom: const Radius.circular(32),
+                  ),
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      colors.isDark
+                          ? AppColors.lavenderPurple.withValues(alpha: 0.18)
+                          : const Color(0xFFDCD0FA).withValues(alpha: 0.65),
+                      colors.isDark
+                          ? AppColors.modernMint.withValues(alpha: 0.12)
+                          : const Color(0xFFD2F4EC).withValues(alpha: 0.50),
+                    ],
+                  ),
+                  border: Border.all(
+                    color: colors.isDark
+                        ? AppColors.lavenderPurple.withValues(alpha: 0.35)
+                        : AppColors.lavenderPurple.withValues(alpha: 0.40),
+                    width: 1.5,
+                  ),
                 ),
               ),
             ),
           ),
 
-          // 2. Teal wash, offset the other way.
+          // 2. The photo plate in a clean arched window
           Positioned(
-            right: -14 - parallax.dx * 0.2,
-            bottom: -14 - parallax.dy * 0.2,
-            width: width * 0.6,
-            height: height * 0.45,
-            child: Opacity(
-              opacity: entrance * 0.5,
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  borderRadius: AppRadius.brXl,
-                  color: colors.secondary.withValues(alpha: 0.12),
-                ),
-              ),
-            ),
-          ),
-
-          // 3. The photo plate.
-          Positioned(
-            left: parallax.dx * -0.5,
-            top: parallax.dy * -0.5,
+            left: parallax.dx * -0.4,
+            top: parallax.dy * -0.4,
             width: width,
             height: height,
             child: Transform.scale(
-              scale: 0.94 + 0.06 * entrance,
+              scale: 0.95 + 0.05 * entrance,
               child: Opacity(
                 opacity: entrance,
                 child: _PhotoPlate(
@@ -104,7 +107,7 @@ class HeroPortrait extends StatelessWidget {
             ),
           ),
 
-          // 4. Floating labels — two depths, drifting on different phases.
+          // 3. Floating labels
           ..._floatingLabels(context, width, height),
         ],
       ),
@@ -158,25 +161,33 @@ class _PhotoPlate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
+    final archRadius = BorderRadius.vertical(
+      top: Radius.circular(width / 2),
+      bottom: const Radius.circular(28),
+    );
 
     return DecoratedBox(
       decoration: BoxDecoration(
-        borderRadius: AppRadius.brXl,
+        borderRadius: archRadius,
         boxShadow: [
           BoxShadow(
-            color: colors.shadow,
-            blurRadius: 60,
-            spreadRadius: -12,
-            offset: const Offset(0, 26),
+            color: colors.shadow.withValues(alpha: colors.isDark ? 0.35 : 0.12),
+            blurRadius: 36,
+            spreadRadius: -4,
+            offset: const Offset(0, 16),
           ),
         ],
       ),
       child: ClipRRect(
-        borderRadius: AppRadius.brXl,
+        borderRadius: archRadius,
         child: Stack(
           fit: StackFit.expand,
           children: [
-            ColoredBox(color: colors.backgroundAlt),
+            ColoredBox(
+              color: colors.isDark
+                  ? const Color(0xFF243241)
+                  : AppColors.softLavender,
+            ),
             AppImage(
               asset: asset,
               layoutWidth: width,
@@ -184,47 +195,32 @@ class _PhotoPlate extends StatelessWidget {
               semanticLabel: 'Portrait of $name',
             ),
 
-            // A foot of page colour so the figure is anchored rather than
-            // floating in a rectangle, plus a light warm top wash that ties the
-            // photo's cool blues to the palette.
+            // Subtle bottom fade to anchor portrait
             DecoratedBox(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    colors.primary.withValues(alpha: colors.isDark ? 0.10 : 0.06),
                     Colors.transparent,
-                    colors.background.withValues(alpha: 0.55),
-                    colors.background.withValues(alpha: 0.92),
+                    Colors.transparent,
+                    colors.background.withValues(alpha: 0.30),
+                    colors.background.withValues(alpha: 0.70),
                   ],
-                  stops: const [0.0, 0.35, 0.86, 1.0],
+                  stops: const [0.0, 0.60, 0.88, 1.0],
                 ),
               ),
             ),
 
-            // Hairline inner edge keeps the plate crisp on both canvases.
+            // Arched outer hairline border
             DecoratedBox(
               decoration: BoxDecoration(
-                borderRadius: AppRadius.brXl,
+                borderRadius: archRadius,
                 border: Border.all(
-                  color: colors.textPrimary.withValues(alpha: 0.10),
-                ),
-              ),
-            ),
-
-            // Editorial caption running up the right edge.
-            Positioned(
-              right: 10,
-              bottom: 18,
-              child: RotatedBox(
-                quarterTurns: 3,
-                child: Text(
-                  name.toUpperCase(),
-                  style: context.type.labelSmall.copyWith(
-                    color: colors.textSecondary,
-                    letterSpacing: 3,
-                  ),
+                  color: colors.isDark
+                      ? Colors.white.withValues(alpha: 0.15)
+                      : AppColors.lavenderPurple.withValues(alpha: 0.35),
+                  width: 1.5,
                 ),
               ),
             ),

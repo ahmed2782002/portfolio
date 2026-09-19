@@ -16,7 +16,7 @@ class ThemeController extends ChangeNotifier {
   /// Restores the persisted choice. Never throws — a failure here must not stop
   /// the site from rendering.
   static Future<ThemeController> restore() async {
-    var mode = ThemeMode.system;
+    var mode = ThemeMode.light;
     try {
       final prefs = await SharedPreferences.getInstance();
       mode = _decode(prefs.getString(_storageKey));

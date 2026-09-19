@@ -25,7 +25,6 @@ class ExperienceSection extends StatelessWidget {
     final section = PortfolioSection.experience;
 
     return SectionShell(
-      background: context.colors.backgroundAlt,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -60,6 +59,13 @@ class _ExperienceRecord extends StatelessWidget {
         color: colors.card,
         borderRadius: AppRadius.brLg,
         border: Border.all(color: colors.border),
+        boxShadow: [
+          BoxShadow(
+            color: colors.shadow.withValues(alpha: 0.05),
+            blurRadius: 20,
+            offset: const Offset(0, 8),
+          ),
+        ],
       ),
       padding: EdgeInsets.all(stacked ? AppSpacing.xl : AppSpacing.x3l),
       child: stacked

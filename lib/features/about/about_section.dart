@@ -25,6 +25,7 @@ class AboutSection extends StatelessWidget {
     final stacked = context.isTabletOrBelow;
 
     return SectionShell(
+      background: context.colors.backgroundAlt,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

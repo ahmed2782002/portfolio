@@ -11,6 +11,7 @@ import '../experience/experience_section.dart';
 import '../footer/site_footer.dart';
 import '../hero/hero_section.dart';
 import '../projects/projects_section.dart';
+import '../services/services_section.dart';
 import '../skills/skills_section.dart';
 import 'portfolio_section.dart';
 import 'widgets/mobile_menu.dart';
@@ -182,12 +183,13 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     _anchor(PortfolioSection.about, const AboutSection()),
+                    _anchor(PortfolioSection.skills, const SkillsSection()),
+                    _anchor(PortfolioSection.projects, const ProjectsSection()),
                     _anchor(
                       PortfolioSection.experience,
                       const ExperienceSection(),
                     ),
-                    _anchor(PortfolioSection.skills, const SkillsSection()),
-                    _anchor(PortfolioSection.projects, const ProjectsSection()),
+                    _anchor(PortfolioSection.services, const ServicesSection()),
                     _anchor(
                       PortfolioSection.contact,
                       ContactSection(onDownloadCv: _downloadCv),

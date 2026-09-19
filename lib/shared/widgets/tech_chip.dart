@@ -49,7 +49,7 @@ class TechChip extends StatelessWidget {
               tint.withValues(alpha: 0.16),
               t,
             ),
-            borderRadius: AppRadius.brXs,
+            borderRadius: AppRadius.brSm,
             border: Border.all(
               color: Color.lerp(
                 emphasised ? tint.withValues(alpha: 0.32) : colors.border,

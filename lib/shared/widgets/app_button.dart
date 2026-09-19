@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/constants/app_spacing.dart';
 import '../../core/extensions/context_extensions.dart';
+import '../../core/theme/app_colors.dart';
 import 'hover_builder.dart';
 
 enum AppButtonVariant {
@@ -61,18 +62,28 @@ class AppButton extends StatelessWidget {
         final (Color background, Color foreground, Color? border) =
             switch (variant) {
           AppButtonVariant.primary => (
-              Color.lerp(tint, _deepen(tint, colors.isDark), t)!,
-              colors.onPrimary,
+              Color.lerp(
+                colors.isDark ? colors.primary : colors.textPrimary,
+                colors.isDark
+                    ? AppColors.modernMint
+                    : const Color(0xFF1E2833),
+                t,
+              )!,
+              colors.isDark ? colors.onPrimary : AppColors.white,
               null,
             ),
           AppButtonVariant.outline => (
-              Color.lerp(Colors.transparent, tint.withValues(alpha: 0.08), t)!,
-              Color.lerp(colors.textPrimary, tint, t)!,
-              Color.lerp(colors.borderStrong, tint, t)!,
+              Color.lerp(
+                Colors.transparent,
+                colors.textPrimary.withValues(alpha: 0.06),
+                t,
+              )!,
+              Color.lerp(colors.textPrimary, colors.primary, t)!,
+              Color.lerp(colors.borderStrong, colors.primary, t)!,
             ),
           AppButtonVariant.quiet => (
               Colors.transparent,
-              Color.lerp(colors.textSecondary, tint, t)!,
+              Color.lerp(colors.textSecondary, colors.primary, t)!,
               null,
             ),
         };
@@ -86,6 +97,7 @@ class AppButton extends StatelessWidget {
                 label,
                 style: type.bodyStrong.copyWith(
                   color: enabled ? foreground : colors.textTertiary,
+                  fontWeight: FontWeight.w600,
                 ),
                 overflow: TextOverflow.ellipsis,
               ),
@@ -114,9 +126,6 @@ class AppButton extends StatelessWidget {
                 children: [
                   content,
                   const SizedBox(height: 3),
-                  // Underline wipes in from the left instead of fading. The
-                  // line is laid out at full label width and clipped back to
-                  // `t`, so it never needs a bounded width of its own.
                   ClipRect(
                     child: Align(
                       alignment: Alignment.centerLeft,
@@ -135,11 +144,11 @@ class AppButton extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.symmetric(
               horizontal: AppSpacing.xl,
-              vertical: 15,
+              vertical: 14,
             ),
             decoration: BoxDecoration(
               color: background,
-              borderRadius: AppRadius.brSm,
+              borderRadius: AppRadius.brPill,
               border: border == null ? null : Border.all(color: border),
               boxShadow: variant == AppButtonVariant.primary && t > 0
                   ? [
@@ -156,15 +165,6 @@ class AppButton extends StatelessWidget {
         );
       },
     );
-  }
-
-  /// Hover state for a filled button: darken in light mode, lighten in dark, so
-  /// the change is visible against either canvas.
-  static Color _deepen(Color base, bool isDark) {
-    final hsl = HSLColor.fromColor(base);
-    final lightness =
-        isDark ? (hsl.lightness + 0.07) : (hsl.lightness - 0.06);
-    return hsl.withLightness(lightness.clamp(0.0, 1.0)).toColor();
   }
 }
 

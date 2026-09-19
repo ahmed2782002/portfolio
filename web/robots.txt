@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ahmed2782002.github.io/portfolio/sitemap.xml

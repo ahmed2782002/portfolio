@@ -63,54 +63,18 @@ class _TechBackdropPainter extends CustomPainter {
   final bool showWashes;
   final Offset parallax;
 
-  List<TextPainter>? _cachedPainters;
-
-  List<TextPainter> _buildTokenPainters() {
-    final tokenStyle = TextStyle(
-      fontFamily: 'JetBrainsMono',
-      fontSize: 10.5,
-      fontWeight: FontWeight.w500,
-      color: colors.primary.withValues(alpha: colors.isDark ? 0.10 : 0.07),
-      letterSpacing: 0.5,
-    );
-
-    return _codeTokens.map((token) {
-      final painter = TextPainter(
-        text: TextSpan(text: token, style: tokenStyle),
-        textDirection: TextDirection.ltr,
-      )..layout();
-      return painter;
-    }).toList(growable: false);
-  }
-
-  static const List<String> _codeTokens = [
-    '</>',
-    '{ }',
-    '//',
-    '=>',
-    '0101',
-    'const',
-    'fn()',
-    '[ ]',
-    ';',
-    'async',
-    'git',
-    '&&',
-    'state',
-    'build()',
-  ];
 
   @override
   void paint(Canvas canvas, Size size) {
     if (showWashes) _paintWashes(canvas, size);
-    _paintTechPattern(canvas, size);
+    _paintSoftPattern(canvas, size);
   }
 
   void _paintWashes(Canvas canvas, Size size) {
-    final emeraldCentre = Offset(size.width * 0.82, size.height * 0.16) + parallax;
-    final amberCentre =
-        Offset(size.width * 0.14, size.height * 0.68) - parallax * 0.6;
-    final radius = math.max(size.width, size.height) * 0.52;
+    final mintCentre = Offset(size.width * 0.78, size.height * 0.20) + parallax;
+    final lavenderCentre =
+        Offset(size.width * 0.18, size.height * 0.65) - parallax * 0.6;
+    final radius = math.max(size.width, size.height) * 0.55;
 
     void wash(Offset centre, Color color, double alpha) {
       final rect = Rect.fromCircle(center: centre, radius: radius);
@@ -123,73 +87,29 @@ class _TechBackdropPainter extends CustomPainter {
       );
     }
 
-    // Emerald primary glow & Warm Amber secondary glow (NO blue, NO purple)
-    wash(emeraldCentre, colors.primary, colors.isDark ? 0.12 : 0.08);
-    wash(amberCentre, colors.secondary, colors.isDark ? 0.09 : 0.06);
+    // Subtle Modern Mint primary glow & Lavender Purple secondary glow
+    wash(mintCentre, colors.primary, colors.isDark ? 0.18 : 0.22);
+    wash(lavenderCentre, colors.secondary, colors.isDark ? 0.15 : 0.18);
   }
 
-  void _paintTechPattern(Canvas canvas, Size size) {
-    // Fade the pattern out toward the bottom so content sits on clean ground.
+  void _paintSoftPattern(Canvas canvas, Size size) {
     canvas.saveLayer(Offset.zero & size, Paint());
-
-    final crosshairPaint = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 1.0
-      ..color = colors.primary.withValues(alpha: colors.isDark ? 0.14 : 0.10);
 
     final dotPaint = Paint()
       ..style = PaintingStyle.fill
-      ..color = colors.textPrimary.withValues(alpha: colors.isDark ? 0.07 : 0.05);
+      ..color = colors.isDark
+          ? colors.secondary.withValues(alpha: 0.07)
+          : colors.secondary.withValues(alpha: 0.06);
 
-    const crossSize = 3.5;
-
-    // 1. Tech Matrix Grid with micro-crosshairs and grid dots
-    int colIndex = 0;
-    for (double x = gridSpacing / 2; x <= size.width; x += gridSpacing) {
-      int rowIndex = 0;
-      for (double y = gridSpacing / 2; y <= size.height; y += gridSpacing) {
-        // Draw crosshair at every 2nd intersection, dot at others
-        if ((colIndex + rowIndex) % 2 == 0) {
-          canvas.drawLine(
-            Offset(x - crossSize, y),
-            Offset(x + crossSize, y),
-            crosshairPaint,
-          );
-          canvas.drawLine(
-            Offset(x, y - crossSize),
-            Offset(x, y + crossSize),
-            crosshairPaint,
-          );
-        } else {
-          canvas.drawCircle(Offset(x, y), 1.0, dotPaint);
-        }
-        rowIndex++;
-      }
-      colIndex++;
-    }
-
-    // 2. Floating Programmer & Code Tokens
-    // TextPainters are cached and only rebuilt when shouldRepaint returns true.
-    final painters = _cachedPainters ??= _buildTokenPainters();
-
-    final double tokenStepX = gridSpacing * 3.5;
-    final double tokenStepY = gridSpacing * 2.8;
-    int tokenIndex = 0;
-
-    for (double x = gridSpacing * 1.5; x < size.width - 40; x += tokenStepX) {
-      for (double y = gridSpacing * 1.2; y < size.height - 40; y += tokenStepY) {
-        final painter = painters[tokenIndex % painters.length];
-
-        // Slight deterministic offset based on position
-        final offsetX = x + (math.sin(tokenIndex * 2.1) * 16);
-        final offsetY = y + (math.cos(tokenIndex * 1.7) * 12);
-
-        painter.paint(canvas, Offset(offsetX, offsetY));
-        tokenIndex++;
+    // Subtle, sparse stationery dot grid
+    final double step = gridSpacing.clamp(56, 72);
+    for (double x = step / 2; x <= size.width; x += step) {
+      for (double y = step / 2; y <= size.height; y += step) {
+        canvas.drawCircle(Offset(x, y), 0.9, dotPaint);
       }
     }
 
-    // 3. Smooth bottom fade gradient
+    // Smooth bottom fade gradient
     canvas.drawRect(
       Offset.zero & size,
       Paint()

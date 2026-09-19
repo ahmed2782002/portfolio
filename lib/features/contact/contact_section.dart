@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../core/constants/app_spacing.dart';
 import '../../core/extensions/context_extensions.dart';
@@ -192,6 +193,13 @@ class _ChannelTile extends StatelessWidget {
 
   final ContactLink channel;
 
+  static String? _assetFor(ContactKind kind) => switch (kind) {
+        ContactKind.linkedin => 'assets/icons/linkedin-svgrepo-com.svg',
+        ContactKind.github => 'assets/icons/github.png',
+        ContactKind.whatsapp => 'assets/icons/whatsapp-color-svgrepo-com.svg',
+        _ => null,
+      };
+
   IconData get _icon => switch (channel.kind) {
         ContactKind.email => Icons.alternate_email_rounded,
         ContactKind.phone => Icons.call_outlined,
@@ -201,6 +209,28 @@ class _ChannelTile extends StatelessWidget {
         ContactKind.website => Icons.language_rounded,
         ContactKind.whatsapp => Icons.chat_rounded,
       };
+
+  Widget _buildIcon(Color color) {
+    final asset = _assetFor(channel.kind);
+    if (asset != null) {
+      if (asset.endsWith('.svg')) {
+        return SvgPicture.asset(
+          asset,
+          width: 17,
+          height: 17,
+          colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
+        );
+      } else {
+        return Image.asset(
+          asset,
+          width: 17,
+          height: 17,
+          color: color,
+        );
+      }
+    }
+    return Icon(_icon, size: 17, color: color);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -230,14 +260,12 @@ class _ChannelTile extends StatelessWidget {
         ),
         child: Row(
           children: [
-            Icon(
-              _icon,
-              size: 17,
-              color: Color.lerp(
+            _buildIcon(
+              Color.lerp(
                 colors.textTertiary,
                 colors.primary,
                 actionable ? t : 0,
-              ),
+              )!,
             ),
             const SizedBox(width: AppSpacing.md),
             Expanded(

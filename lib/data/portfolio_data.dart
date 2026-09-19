@@ -207,7 +207,7 @@ abstract final class PortfolioData {
           'booking flow and reservation management. I developed UI screens and '
           'integrated RESTful APIs, with recent work on the FCM token flow and '
           'async Cubit lifecycle stability.',
-      tint: Color(0xFF0D9488),
+      tint: Color(0xFFA3E4D7),
       icon: Icons.domain_rounded,
       bannerAsset: 'assets/images/projects/book_iraq/banner.jpg',
       features: [
@@ -266,7 +266,7 @@ abstract final class PortfolioData {
           'Delivery mobile application built with Flutter. I implemented the '
           'RESTful API integration and Google Maps for real-time order tracking '
           'and delivery management.',
-      tint: Color(0xFF10B981),
+      tint: Color(0xFFBB8FCE),
       icon: Icons.local_shipping_rounded,
       features: [
         'Incoming order queue with accept and decline',
@@ -315,7 +315,7 @@ abstract final class PortfolioData {
           'posts. It supports creating posts with images or polls, sharing '
           'posts, and a profile section for editing name, nickname and photo. '
           'The interface is Arabic-first and fully RTL.',
-      tint: Color(0xFFFF5757),
+      tint: Color(0xFFA3E4D7),
       icon: Icons.forum_rounded,
       features: [
         'Posts with comments, likes, sharing and bookmarks',
@@ -368,7 +368,7 @@ abstract final class PortfolioData {
           'Seat reservation platform built as a team graduation project. I '
           'contributed to Flutter UI development, Firebase integration, the AI '
           'features and a Flutter Web admin dashboard.',
-      tint: Color(0xFFF97316),
+      tint: Color(0xFFBB8FCE),
       icon: Icons.theaters_rounded,
       features: [
         'Onboarding and movie discovery — Now Playing and Coming Soon',
@@ -544,6 +544,85 @@ abstract final class PortfolioData {
       value: '+20 101 783 7378',
       url: 'https://wa.me/201017837378',
       kind: ContactKind.whatsapp,
+    ),
+  ];
+
+  /// Core development and engineering services.
+  static const List<ServiceOffering> services = [
+    ServiceOffering(
+      title: 'Cross-Platform Mobile Apps',
+      description:
+          'End-to-end mobile app development for iOS and Android using Flutter & Dart. Clean code, high responsiveness, and platform-native feel.',
+      icon: Icons.phone_iphone_rounded,
+      badge: 'Core Focus',
+      deliverables: [
+        'iOS & Android builds',
+        'Responsive phone & tablet UI',
+        'Offline caching & persistence',
+        'App store compliance',
+      ],
+    ),
+    ServiceOffering(
+      title: 'State Management & Architecture',
+      description:
+          'Structuring scalable and maintainable Flutter applications using BLoC/Cubit, Clean Architecture, and strict separation of concerns.',
+      icon: Icons.account_tree_rounded,
+      badge: 'Architecture',
+      deliverables: [
+        'BLoC / Cubit implementation',
+        'Clean Architecture layers',
+        'Repository pattern & DI',
+        'Testable business logic',
+      ],
+    ),
+    ServiceOffering(
+      title: 'REST API & Backend Integration',
+      description:
+          'Connecting mobile apps with backend RESTful services, JSON APIs, and cloud services with robust error handling and token authentication.',
+      icon: Icons.cloud_sync_rounded,
+      deliverables: [
+        'Dio client setup & interceptors',
+        'JWT Auth & Refresh tokens',
+        'Firebase / Supabase integration',
+        'Real-time data handling',
+      ],
+    ),
+    ServiceOffering(
+      title: 'RTL & Arabic Localization',
+      description:
+          'Specialized in Arabic-first and bi-directional interfaces. Complete RTL layout adaptation, localized typography, and multilingual switching.',
+      icon: Icons.translate_rounded,
+      badge: 'Specialty',
+      deliverables: [
+        'Bi-directional (RTL/LTR) layouts',
+        'Arabic typography fine-tuning',
+        'Localization (i18n & l10n)',
+        'Context-aware icons & mirrors',
+      ],
+    ),
+    ServiceOffering(
+      title: 'Figma to Flutter UI/UX',
+      description:
+          'Translating design prototypes into pixel-perfect Flutter widgets with micro-animations, smooth transitions, and custom themes.',
+      icon: Icons.palette_outlined,
+      deliverables: [
+        'Pixel-perfect screen coding',
+        'Smooth 60fps micro-animations',
+        'Light & Dark mode themes',
+        'Custom interactive components',
+      ],
+    ),
+    ServiceOffering(
+      title: 'Performance & App Refactoring',
+      description:
+          'Auditing, optimizing, and fixing existing Flutter codebases to eliminate frame drops, minimize memory leaks, and upgrade legacy packages.',
+      icon: Icons.speed_rounded,
+      deliverables: [
+        'Repaint boundary profiling',
+        'Memory leak elimination',
+        'Widget rebuild optimization',
+        'Code refactoring & bug fixing',
+      ],
     ),
   ];
 }
