@@ -502,18 +502,6 @@ class _AdditionalCard extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Transform.translate(
-                    offset: Offset(3 * t, -3 * t),
-                    child: Icon(
-                      Icons.north_east_rounded,
-                      size: 15,
-                      color: Color.lerp(
-                        colors.textTertiary,
-                        colors.primary,
-                        t,
-                      ),
-                    ),
-                  ),
                 ],
               ),
               const SizedBox(height: 2),

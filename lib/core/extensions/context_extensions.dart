@@ -37,10 +37,5 @@ extension DesignSystemContext on BuildContext {
 
   /// Pointer devices get hover affordances and the custom cursor; touch
   /// devices get neither.
-  bool get hasPointer {
-    final kind = MediaQuery.maybeOf(this)?.navigationMode;
-    // `navigationMode` isn't a hover signal on its own, so fall back to width:
-    // the hover-driven flourishes only exist in the tablet-and-up layouts.
-    return kind != null && !isMobile;
-  }
+  bool get hasPointer => !isMobile;
 }

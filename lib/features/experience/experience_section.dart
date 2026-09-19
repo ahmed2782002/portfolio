@@ -123,23 +123,30 @@ class _Identity extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         RevealOnScroll(
-          child: Row(
-            children: [
-              Container(
-                width: 8,
-                height: 8,
-                decoration: BoxDecoration(
-                  color: colors.success,
-                  shape: BoxShape.circle,
+          child: Builder(builder: (context) {
+            final isCurrent =
+                entry.period.toLowerCase().contains('present');
+            final indicatorColor =
+                isCurrent ? colors.success : colors.textTertiary;
+            final labelText = isCurrent ? 'CURRENT ROLE' : 'PAST ROLE';
+            return Row(
+              children: [
+                Container(
+                  width: 8,
+                  height: 8,
+                  decoration: BoxDecoration(
+                    color: indicatorColor,
+                    shape: BoxShape.circle,
+                  ),
                 ),
-              ),
-              const SizedBox(width: AppSpacing.xs),
-              Text(
-                'CURRENT ROLE',
-                style: type.label.copyWith(color: colors.success),
-              ),
-            ],
-          ),
+                const SizedBox(width: AppSpacing.xs),
+                Text(
+                  labelText,
+                  style: type.label.copyWith(color: indicatorColor),
+                ),
+              ],
+            );
+          }),
         ),
         const SizedBox(height: AppSpacing.md),
         RevealOnScroll(

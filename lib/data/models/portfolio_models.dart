@@ -80,7 +80,7 @@ class ContactLink {
   final ContactKind kind;
 }
 
-enum ContactKind { email, phone, location, github, linkedin, website }
+enum ContactKind { email, phone, location, github, linkedin, website, whatsapp }
 
 @immutable
 class ExperienceEntry {

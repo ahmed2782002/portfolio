@@ -12,6 +12,7 @@ import '../../data/portfolio_data.dart';
 import '../../shared/widgets/ambient_backdrop.dart';
 import '../../shared/widgets/app_button.dart';
 import '../../shared/widgets/section_shell.dart';
+import '../../shared/widgets/social_icon_bar.dart';
 import '../home/portfolio_section.dart';
 import 'widgets/hero_portrait.dart';
 
@@ -390,6 +391,16 @@ class _HeroCopy extends StatelessWidget {
         const SizedBox(height: AppSpacing.x4l),
 
         _Rise(step(0.38, 0.82), child: const _StatRail()),
+        const SizedBox(height: AppSpacing.xl),
+
+        _Rise(
+          step(0.44, 0.88),
+          child: SocialIconBar(
+            links: PortfolioData.socialLinks,
+            emailUrl: PortfolioData.profile.mailtoUri,
+            size: 44,
+          ),
+        ),
       ],
     );
   }
@@ -404,14 +415,16 @@ class _Rise extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: animation,
-      child: child,
-      builder: (context, child) => Opacity(
-        opacity: animation.value.clamp(0.0, 1.0),
-        child: Transform.translate(
-          offset: Offset(0, 22 * (1 - animation.value)),
+    return RepaintBoundary(
+      child: FadeTransition(
+        opacity: animation,
+        child: AnimatedBuilder(
+          animation: animation,
           child: child,
+          builder: (context, child) => Transform.translate(
+            offset: Offset(0, 22 * (1 - animation.value)),
+            child: child,
+          ),
         ),
       ),
     );
@@ -426,6 +439,7 @@ class _StatusPill extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = context.colors;
     final entry = PortfolioData.experience.first;
+    final isCurrent = entry.period.toLowerCase().contains('present');
 
     return Container(
       padding: const EdgeInsets.symmetric(
@@ -440,10 +454,12 @@ class _StatusPill extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          _PulseDot(color: colors.success),
+          _PulseDot(color: isCurrent ? colors.success : colors.textTertiary),
           const SizedBox(width: AppSpacing.xs),
           Text(
-            'Currently at ${entry.company}',
+            isCurrent
+                ? 'Currently at ${entry.company}'
+                : 'Previously at ${entry.company}',
             style: context.type.labelSmall.copyWith(color: colors.textSecondary),
           ),
           const SizedBox(width: AppSpacing.xs),

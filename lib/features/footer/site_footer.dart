@@ -6,6 +6,7 @@ import '../../core/utils/link_launcher.dart';
 import '../../data/portfolio_data.dart';
 import '../../shared/widgets/app_button.dart';
 import '../../shared/widgets/section_shell.dart';
+import '../../shared/widgets/social_icon_bar.dart';
 import '../home/portfolio_section.dart';
 
 /// Minimal closing bar: who, what, where to go next.
@@ -13,6 +14,9 @@ class SiteFooter extends StatelessWidget {
   const SiteFooter({super.key, required this.onNavigate});
 
   final ValueChanged<PortfolioSection> onNavigate;
+
+  /// Cached at class load — avoids calling DateTime.now() on every rebuild.
+  static final int _year = DateTime.now().year;
 
   @override
   Widget build(BuildContext context) {
@@ -93,6 +97,13 @@ class SiteFooter extends StatelessWidget {
                   links,
                 ],
               ),
+            const SizedBox(height: AppSpacing.lg),
+            SocialIconBar(
+              links: PortfolioData.socialLinks,
+              emailUrl: PortfolioData.profile.mailtoUri,
+              size: 40,
+              spacing: AppSpacing.sm,
+            ),
             const SizedBox(height: AppSpacing.xl),
             Container(height: 1, color: colors.border),
             const SizedBox(height: AppSpacing.md),
@@ -100,7 +111,7 @@ class SiteFooter extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    '© ${DateTime.now().year} ${profile.fullName}',
+                    '© $_year ${profile.fullName}',
                     style: type.labelSmall.copyWith(color: colors.textTertiary),
                   ),
                 ),

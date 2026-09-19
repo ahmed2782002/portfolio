@@ -525,19 +525,25 @@ abstract final class PortfolioData {
     ),
   ];
 
-  /// Public profiles.
-  ///
-  /// The CV lists none, so nothing is invented here — the UI renders whatever
-  /// this list contains and skips the row entirely when it is empty. To add
-  /// them later, uncomment and fill in:
-  ///
-  /// ```dart
-  /// ContactLink(
-  ///   label: 'GitHub',
-  ///   value: 'github.com/<handle>',
-  ///   url: 'https://github.com/<handle>',
-  ///   kind: ContactKind.github,
-  /// ),
-  /// ```
-  static const List<ContactLink> socialLinks = <ContactLink>[];
+  /// Public profiles and messaging channels.
+  static const List<ContactLink> socialLinks = <ContactLink>[
+    ContactLink(
+      label: 'LinkedIn',
+      value: 'Ahmed Esam',
+      url: 'https://www.linkedin.com/in/ahmed-esam-042032347/',
+      kind: ContactKind.linkedin,
+    ),
+    ContactLink(
+      label: 'GitHub',
+      value: 'ahmed2782002',
+      url: 'https://github.com/ahmed2782002',
+      kind: ContactKind.github,
+    ),
+    ContactLink(
+      label: 'WhatsApp',
+      value: '+20 101 783 7378',
+      url: 'https://wa.me/201017837378',
+      kind: ContactKind.whatsapp,
+    ),
+  ];
 }

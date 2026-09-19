@@ -63,6 +63,26 @@ class _TechBackdropPainter extends CustomPainter {
   final bool showWashes;
   final Offset parallax;
 
+  List<TextPainter>? _cachedPainters;
+
+  List<TextPainter> _buildTokenPainters() {
+    final tokenStyle = TextStyle(
+      fontFamily: 'JetBrainsMono',
+      fontSize: 10.5,
+      fontWeight: FontWeight.w500,
+      color: colors.primary.withValues(alpha: colors.isDark ? 0.10 : 0.07),
+      letterSpacing: 0.5,
+    );
+
+    return _codeTokens.map((token) {
+      final painter = TextPainter(
+        text: TextSpan(text: token, style: tokenStyle),
+        textDirection: TextDirection.ltr,
+      )..layout();
+      return painter;
+    }).toList(growable: false);
+  }
+
   static const List<String> _codeTokens = [
     '</>',
     '{ }',
@@ -149,13 +169,8 @@ class _TechBackdropPainter extends CustomPainter {
     }
 
     // 2. Floating Programmer & Code Tokens
-    final tokenStyle = TextStyle(
-      fontFamily: 'JetBrainsMono',
-      fontSize: 10.5,
-      fontWeight: FontWeight.w500,
-      color: colors.primary.withValues(alpha: colors.isDark ? 0.10 : 0.07),
-      letterSpacing: 0.5,
-    );
+    // TextPainters are cached and only rebuilt when shouldRepaint returns true.
+    final painters = _cachedPainters ??= _buildTokenPainters();
 
     final double tokenStepX = gridSpacing * 3.5;
     final double tokenStepY = gridSpacing * 2.8;
@@ -163,18 +178,13 @@ class _TechBackdropPainter extends CustomPainter {
 
     for (double x = gridSpacing * 1.5; x < size.width - 40; x += tokenStepX) {
       for (double y = gridSpacing * 1.2; y < size.height - 40; y += tokenStepY) {
-        final token = _codeTokens[tokenIndex % _codeTokens.length];
-        final textSpan = TextSpan(text: token, style: tokenStyle);
-        final textPainter = TextPainter(
-          text: textSpan,
-          textDirection: TextDirection.ltr,
-        )..layout();
+        final painter = painters[tokenIndex % painters.length];
 
         // Slight deterministic offset based on position
         final offsetX = x + (math.sin(tokenIndex * 2.1) * 16);
         final offsetY = y + (math.cos(tokenIndex * 1.7) * 12);
 
-        textPainter.paint(canvas, Offset(offsetX, offsetY));
+        painter.paint(canvas, Offset(offsetX, offsetY));
         tokenIndex++;
       }
     }

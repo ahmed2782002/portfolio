@@ -85,11 +85,10 @@ class AppColors extends ThemeExtension<AppColors> {
   bool get isDark => brightness == Brightness.dark;
 
   // ---------------------------------------------------------------------------
-  // Light — cool paper, slate ink.
+  // Light — crisp canvas with sage undertones, emerald primary, and warm amber.
   //
-  // The canvas sits a step below pure white so white cards read as *lifted*
-  // rather than flush; every neutral carries the same faint blue cast so the
-  // greys never drift toward beige.
+  // The canvas sits a step below pure white so white cards read as lifted
+  // rather than flush; neutrals carry a faint green cast matching the theme.
   // ---------------------------------------------------------------------------
   static const AppColors light = AppColors(
     brightness: Brightness.light,

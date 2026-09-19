@@ -8,6 +8,7 @@ import '../../data/models/portfolio_models.dart';
 import '../../data/portfolio_data.dart';
 import '../../shared/animations/reveal_on_scroll.dart';
 import '../../shared/widgets/ambient_backdrop.dart';
+import '../../shared/widgets/social_icon_bar.dart';
 import '../../shared/widgets/app_button.dart';
 import '../../shared/widgets/hover_builder.dart';
 import '../../shared/widgets/section_header.dart';
@@ -58,8 +59,8 @@ class ContactSection extends StatelessWidget {
                 index: section.index,
                 label: section.label,
                 title: "Let's build something\nthat ships.",
-                lead: 'Open to Flutter roles and freelance work. The fastest '
-                    'route is email — I reply to everything.',
+                lead: 'Open to Flutter roles and freelance work. Feel free to '
+                    'reach out via email, WhatsApp, or LinkedIn.',
               ),
               const SizedBox(height: AppSpacing.x4l),
 
@@ -141,6 +142,12 @@ class _Actions extends StatelessWidget {
               ),
             ],
           ),
+          const SizedBox(height: AppSpacing.xl),
+          SocialIconBar(
+            links: PortfolioData.socialLinks,
+            emailUrl: profile.mailtoUri,
+            size: 48,
+          ),
         ],
       ),
     );
@@ -192,6 +199,7 @@ class _ChannelTile extends StatelessWidget {
         ContactKind.github => Icons.code_rounded,
         ContactKind.linkedin => Icons.business_center_outlined,
         ContactKind.website => Icons.language_rounded,
+        ContactKind.whatsapp => Icons.chat_rounded,
       };
 
   @override

@@ -150,28 +150,28 @@ class _RevealOnScrollState extends State<RevealOnScroll>
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _curved,
-      // The subtree is built once and reused for every animation frame.
-      child: widget.child,
-      builder: (context, child) {
-        final t = _curved.value;
-        final scale = widget.startScale == 1
-            ? 1.0
-            : widget.startScale + (1 - widget.startScale) * t;
-        return Opacity(
-          opacity: t.clamp(0.0, 1.0),
-          child: Transform.translate(
+    return FadeTransition(
+      opacity: _curved,
+      child: AnimatedBuilder(
+        animation: _curved,
+        child: widget.child,
+        builder: (context, child) {
+          final t = _curved.value;
+          final scale = widget.startScale == 1
+              ? 1.0
+              : widget.startScale + (1 - widget.startScale) * t;
+          final translated = Transform.translate(
             offset: Offset(
               widget.offsetX * (1 - t),
               widget.offsetY * (1 - t),
             ),
-            child: scale == 1.0
-                ? child
-                : Transform.scale(scale: scale, child: child),
-          ),
-        );
-      },
+            child: child,
+          );
+          return scale == 1.0
+              ? translated
+              : Transform.scale(scale: scale, child: translated);
+        },
+      ),
     );
   }
 }

@@ -140,7 +140,7 @@ class _Wordmark extends StatelessWidget {
             height: 30,
             alignment: Alignment.center,
             decoration: BoxDecoration(
-              color: Color.lerp(colors.primary, colors.primary, t),
+              color: Color.lerp(colors.primary, colors.secondary, t * 0.3),
               borderRadius: AppRadius.brXs,
               boxShadow: [
                 BoxShadow(
