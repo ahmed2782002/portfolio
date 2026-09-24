@@ -310,6 +310,20 @@ class _HeroCopy extends StatelessWidget {
     final profile = PortfolioData.profile;
     final stacked = portrait != null;
 
+    final nameGradient = LinearGradient(
+      colors: colors.isDark
+          ? const [
+              AppColors.modernMint,
+              AppColors.lavenderPurple,
+            ]
+          : const [
+              Color(0xFF168A78),
+              Color(0xFF73368E),
+            ],
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+    );
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
@@ -317,22 +331,22 @@ class _HeroCopy extends StatelessWidget {
         _Rise(step(0.00, 0.40), child: const _StatusPill()),
         const SizedBox(height: AppSpacing.xl),
 
-        // The name is set tight and large; the surname drops to a lighter
-        // weight so the two lines read as one mark rather than two headings.
+        // The tripartite name styled with the project's signature gradient
+        // blending modern mint and lavender purple.
         _Rise(
           step(0.06, 0.50),
-          child: Text(
+          child: _GradientText(
             'Ahmed Esam',
-            style: type.display1.copyWith(color: colors.textPrimary),
+            style: type.display1,
+            gradient: nameGradient,
           ),
         ),
         _Rise(
           step(0.10, 0.54),
-          child: Text(
+          child: _GradientText(
             'Abdelsalam',
-            style: type.display1.copyWith(
-              color: colors.textPrimary.withValues(alpha: 0.34),
-            ),
+            style: type.display1,
+            gradient: nameGradient,
           ),
         ),
         const SizedBox(height: AppSpacing.lg),
@@ -456,6 +470,33 @@ class _Rise extends StatelessWidget {
             child: child,
           ),
         ),
+      ),
+    );
+  }
+}
+
+/// Renders text with a shader mask linear gradient.
+class _GradientText extends StatelessWidget {
+  const _GradientText(
+    this.text, {
+    required this.style,
+    required this.gradient,
+  });
+
+  final String text;
+  final TextStyle style;
+  final Gradient gradient;
+
+  @override
+  Widget build(BuildContext context) {
+    return ShaderMask(
+      blendMode: BlendMode.srcIn,
+      shaderCallback: (bounds) => gradient.createShader(
+        Rect.fromLTWH(0, 0, bounds.width, bounds.height),
+      ),
+      child: Text(
+        text,
+        style: style.copyWith(color: Colors.white),
       ),
     );
   }

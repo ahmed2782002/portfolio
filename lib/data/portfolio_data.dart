@@ -18,24 +18,24 @@ abstract final class PortfolioData {
     role: 'Junior Flutter Developer',
     tagline:
         'I build Flutter apps for booking, delivery and social products — '
-        'with a particular strength in RTL, Arabic-first interfaces.',
+        'from clean architecture to polished, responsive interfaces.',
     summary:
         'Junior Flutter Developer with 1+ year of professional experience '
         'delivering mobile applications across consultation/service booking, '
         'property booking, delivery, and social domains. Skilled in BLoC/Cubit state '
         'management, Clean Architecture, and RESTful API integration, with experience '
-        'building multilingual, RTL-aware user interfaces. Comfortable moving across '
+        'building multilingual, responsive user interfaces. Comfortable moving across '
         "different app domains and adapting quickly to each project's structure "
         'and business logic.',
     location: 'Cairo, Egypt',
     email: 'ahmedesam2772@gmail.com',
     phone: '+20 101 783 7378',
     photoAsset: 'assets/images/profile/ahmed.jpg',
-    cvAsset: 'assets/docs/Ahmed_Esam_Junior_Flutter_Developer_CV.pdf',
+    cvAsset: 'assets/cv/Ahmed_Esam_Junior_Flutter_Developer_CV.pdf',
     cvFileName: 'Ahmed_Esam_Junior_Flutter_Developer_CV.pdf',
     stats: [
       Stat(value: '1+', label: 'year of experience'),
-      Stat(value: '12+', label: 'apps in production'),
+      Stat(value: '18+', label: 'apps in production'),
       Stat(value: '4', label: 'product domains'),
     ],
     focusAreas: [
@@ -43,7 +43,7 @@ abstract final class PortfolioData {
       'BLoC / Cubit',
       'Clean Architecture',
       'REST + Dio',
-      'RTL / i18n',
+      'Firebase',
     ],
   );
 
@@ -51,11 +51,10 @@ abstract final class PortfolioData {
   /// line in the CV's summary or experience section.
   static const List<({String title, String body})> principles = [
     (
-      title: 'Arabic-first, RTL-aware',
+      title: 'Responsive by default',
       body:
-          'Building layouts that work in both directions — resolving '
-          'direction-dependent positioning and localized font rendering '
-          'instead of mirroring an LTR design and hoping.',
+          'Screens built from UI/UX designs that hold up across phone and '
+          'tablet sizes, working closely with designers and backend developers.',
     ),
     (
       title: 'Stateless screens, predictable state',
@@ -87,7 +86,15 @@ abstract final class PortfolioData {
       period: 'Aug. 2025 — Present',
       location: 'Cairo, Egypt',
       workMode: 'Remote',
-      products: ['Qarar', 'Booking App', 'Fresh Driver', 'Quartz', 'Rawnaq'],
+      products: [
+        'Laundo',
+        'Laundo Delivery',
+        'Qarar',
+        'Booking App',
+        'Fresh Driver',
+        'Quartz',
+        'Rawnaq',
+      ],
       highlights: [
         'Collaborate with the Flutter team, backend developers, and UI/UX designers to implement features and resolve technical issues.',
         'Build responsive and scalable mobile applications using Flutter, Dart, BLoC/Cubit, Clean Architecture, and RESTful APIs.',
@@ -123,7 +130,6 @@ abstract final class PortfolioData {
         'Flutter',
         'Flutter Web',
         'Responsive UI',
-        'RTL / LTR Layouts',
         'Localization (i18n)',
       ],
     ),
@@ -190,11 +196,224 @@ abstract final class PortfolioData {
   // Projects
   //
   // `hasDeviceFrame` records whether the supplied asset *already* contains a
-  // phone mockup. Book Iraq and Fresh Driver ship as store graphics that are
-  // already framed; Quartz and YourSeat are raw screenshots that the UI wraps
-  // in its own device frame.
+  // phone mockup. Qarar, Book Iraq, Fresh Driver and Quartz ship as store
+  // graphics that are already framed; Laundo, Laundo Delivery and YourSeat are
+  // raw screenshots that the UI wraps in its own device frame.
   // ---------------------------------------------------------------------------
   static const List<Project> projects = [
+    Project(
+      id: 'laundo',
+      name: 'Laundo',
+      category: 'Laundry pickup & delivery',
+      context: 'Nahr Development',
+      platform: 'iOS · Android',
+      role: 'UI development · REST API integration',
+      description:
+          'Application for laundry pickup and delivery customers, covering '
+          'order creation with scheduling, checkout with coupons and wallet, '
+          'live order tracking, order history with reorder and rating, saved '
+          'addresses on the map, authentication with password recovery and an '
+          'account section, plus a support system with complaints and FAQs. I '
+          'developed the UI and integrated the RESTful APIs.',
+      tint: Color(0xFF7FA8E6),
+      icon: Icons.local_laundry_service_rounded,
+      iconAsset: 'assets/images/projects/laundo/icon.png',
+      features: [
+        'Order creation with pickup and delivery scheduling',
+        'Checkout with coupons and wallet',
+        'Live order tracking on Google Maps',
+        'Order history with reorder and rating',
+        'Saved addresses picked on the map',
+        'Authentication with password recovery',
+        'Support system with complaints and FAQs',
+      ],
+      technologies: [
+        'Flutter',
+        'Dart',
+        'Cubit',
+        'Clean Architecture',
+        'REST APIs',
+        'Dio',
+        'GetIt',
+        'Dartz',
+        'Easy Localization',
+        'Secure Storage',
+        'Shared Preferences',
+        'Google Maps',
+        'Geolocator',
+        'Firebase Cloud Messaging',
+        'Local Notifications',
+      ],
+      screenshots: [
+        Screenshot(
+          asset: 'assets/images/projects/laundo/01_home.png',
+          caption: 'Home — offers, current order and quick tracking',
+          aspectRatio: 375 / 812,
+        ),
+        Screenshot(
+          asset: 'assets/images/projects/laundo/02_create_order.png',
+          caption: 'Create order — step-by-step with pickup address',
+          aspectRatio: 375 / 812,
+        ),
+        Screenshot(
+          asset: 'assets/images/projects/laundo/03_tracking.png',
+          caption: 'Live tracking — driver route, ETA and contact',
+          aspectRatio: 375 / 812,
+        ),
+        Screenshot(
+          asset: 'assets/images/projects/laundo/04_prices.png',
+          caption: 'Prices — per service and garment category',
+          aspectRatio: 375 / 812,
+        ),
+        Screenshot(
+          asset: 'assets/images/projects/laundo/05_pickup_location.png',
+          caption: 'Pickup location — choose the address on the map',
+          aspectRatio: 375 / 828,
+        ),
+      ],
+    ),
+    Project(
+      id: 'laundo-delivery',
+      name: 'Laundo Delivery',
+      category: 'Driver app · Laundry logistics',
+      context: 'Nahr Development',
+      platform: 'iOS · Android',
+      role: 'UI development · REST API integration',
+      description:
+          'Application for laundry pickup and delivery drivers, covering task '
+          'management and details with live tracking, QR scanning, signature '
+          'capture, task history, authentication with password recovery and an '
+          'account section for personal info, documents and service areas, plus '
+          'a support system with tickets, complaints and FAQs. I developed the '
+          'UI and integrated the RESTful APIs.',
+      tint: Color(0xFF6FC3E0),
+      icon: Icons.delivery_dining_rounded,
+      iconAsset: 'assets/images/projects/laundo_driver/icon.png',
+      features: [
+        'Task management and task details with live tracking',
+        'QR scanning for order handover',
+        'Signature capture on delivery',
+        'Task history with status filters',
+        'Account section — personal info, documents and service areas',
+        'Authentication with password recovery',
+        'Support system with tickets, complaints and FAQs',
+      ],
+      technologies: [
+        'Flutter',
+        'Dart',
+        'Cubit',
+        'Clean Architecture',
+        'REST APIs',
+        'Dio',
+        'GetIt',
+        'Dartz',
+        'Easy Localization',
+        'Secure Storage',
+        'Shared Preferences',
+        'Google Maps',
+        'Geolocator',
+        'Mobile Scanner',
+      ],
+      screenshots: [
+        Screenshot(
+          asset: 'assets/images/projects/laundo_driver/01_login.png',
+          caption: 'Driver login — phone number and password',
+          aspectRatio: 375 / 812,
+        ),
+        Screenshot(
+          asset: 'assets/images/projects/laundo_driver/02_home.png',
+          caption: 'Home — availability, daily summary and current task',
+          aspectRatio: 375 / 812,
+        ),
+        Screenshot(
+          asset: 'assets/images/projects/laundo_driver/03_tasks.png',
+          caption: 'Tasks — search and filter by status',
+          aspectRatio: 375 / 812,
+        ),
+        Screenshot(
+          asset: 'assets/images/projects/laundo_driver/04_history.png',
+          caption: 'History — completed and failed pickups and deliveries',
+          aspectRatio: 375 / 812,
+        ),
+      ],
+    ),
+    Project(
+      id: 'qarar',
+      name: 'Qarar',
+      category: 'Consultation booking',
+      context: 'Nahr Development',
+      platform: 'iOS · Android',
+      role: 'App architecture · UI development · REST API integration',
+      description:
+          'Flutter consultation-booking app for clients and service providers. '
+          'I set up the project and its architecture, built the networking '
+          'layer, authentication with OTP, onboarding, profiles and account '
+          'security, financial transactions, certificates, charity committees, '
+          'help center, notification badges and theme management, and improved '
+          'bookings with pagination, filtering and shimmer loading.',
+      tint: Color(0xFFD4AF6A),
+      icon: Icons.medical_services_rounded,
+      iconAsset: 'assets/images/projects/qarar/icon.png',
+      features: [
+        'Project setup, architecture and networking layer',
+        'Authentication with OTP and onboarding',
+        'Profiles and account security',
+        'Financial transactions and certificates',
+        'Charity committees and help center',
+        'Bookings with pagination, filtering and shimmer loading',
+        'Notification badges and theme management',
+      ],
+      technologies: [
+        'Flutter',
+        'Dart',
+        'Bloc (Cubit)',
+        'Dio',
+        'GetIt',
+        'Dartz',
+        'RESTful APIs',
+        'Shared Preferences',
+        'Flutter ScreenUtil',
+        'Shimmer',
+        'Toastification',
+        'Flutter SVG',
+        'Image Picker',
+        'File Picker',
+        'Intl',
+        'Git',
+      ],
+      screenshots: [
+        Screenshot(
+          asset: 'assets/images/projects/qarar/01_splash.png',
+          caption: 'Splash — the Qarar brand mark',
+          aspectRatio: 1320 / 2868,
+          hasDeviceFrame: true,
+        ),
+        Screenshot(
+          asset: 'assets/images/projects/qarar/02_home.png',
+          caption: 'Home — categories and featured experts',
+          aspectRatio: 1320 / 2868,
+          hasDeviceFrame: true,
+        ),
+        Screenshot(
+          asset: 'assets/images/projects/qarar/03_financial.png',
+          caption: 'Specialties — financial advisors and market insight',
+          aspectRatio: 1320 / 2868,
+          hasDeviceFrame: true,
+        ),
+        Screenshot(
+          asset: 'assets/images/projects/qarar/04_legal.png',
+          caption: 'Legal experts — ratings, session price and booking',
+          aspectRatio: 1320 / 2868,
+          hasDeviceFrame: true,
+        ),
+        Screenshot(
+          asset: 'assets/images/projects/qarar/05_committee.png',
+          caption: 'Charity committee — details and supported cases',
+          aspectRatio: 1320 / 2868,
+          hasDeviceFrame: true,
+        ),
+      ],
+    ),
     Project(
       id: 'book-iraq',
       name: 'Book Iraq',
@@ -209,6 +428,7 @@ abstract final class PortfolioData {
           'async Cubit lifecycle stability.',
       tint: Color(0xFFA3E4D7),
       icon: Icons.domain_rounded,
+      iconAsset: 'assets/images/projects/book_iraq/icon.png',
       bannerAsset: 'assets/images/projects/book_iraq/banner.jpg',
       features: [
         'Hotel search and property listings',
@@ -268,6 +488,7 @@ abstract final class PortfolioData {
           'and delivery management.',
       tint: Color(0xFFBB8FCE),
       icon: Icons.local_shipping_rounded,
+      iconAsset: 'assets/images/projects/fresh_driver/icon.png',
       features: [
         'Incoming order queue with accept and decline',
         'Availability toggle that controls new order visibility',
@@ -278,9 +499,11 @@ abstract final class PortfolioData {
       technologies: [
         'Flutter',
         'Dart',
+        'Cubit',
         'REST APIs',
         'Dio',
         'Google Maps',
+        'Firebase',
       ],
       screenshots: [
         Screenshot(
@@ -314,46 +537,58 @@ abstract final class PortfolioData {
           'Flutter social media app with posts, comments, likes and saved '
           'posts. It supports creating posts with images or polls, sharing '
           'posts, and a profile section for editing name, nickname and photo. '
-          'The interface is Arabic-first and fully RTL.',
-      tint: Color(0xFFA3E4D7),
+          'I developed the UI and integrated the RESTful APIs.',
+      tint: Color(0xFFBB8FCE),
       icon: Icons.forum_rounded,
+      iconAsset: 'assets/images/projects/quartz/icon.png',
       features: [
         'Posts with comments, likes, sharing and bookmarks',
         'Post composer supporting images or polls',
+        'Threaded replies on every post',
+        'Nearby discovery within a set radius',
         'Profile editing — name, nickname and profile photo',
-        'Nearby discovery with message requests',
-        'Granular privacy controls for location and visibility',
-        'Arabic-first RTL layout throughout',
+        'Saved posts and account management',
       ],
       technologies: [
         'Flutter',
         'Dart',
         'Cubit',
+        'Clean Architecture',
         'REST APIs',
         'Dio',
-        'RTL',
-        'Localization',
+        'Hive',
+        'Shared Preferences',
       ],
       screenshots: [
         Screenshot(
-          asset: 'assets/images/projects/quartz/01_thread.jpg',
-          caption: 'Post thread — replies, reactions and tags',
-          aspectRatio: 375 / 812,
+          asset: 'assets/images/projects/quartz/01_splash.jpg',
+          caption: 'Splash — the Quartz brand mark',
+          aspectRatio: 555 / 1200,
+          hasDeviceFrame: true,
         ),
         Screenshot(
-          asset: 'assets/images/projects/quartz/02_profile.jpg',
-          caption: 'Profile — bio, interests and message request',
-          aspectRatio: 375 / 812,
+          asset: 'assets/images/projects/quartz/02_home.jpg',
+          caption: 'Home feed — local posts, tags and reactions',
+          aspectRatio: 555 / 1200,
+          hasDeviceFrame: true,
         ),
         Screenshot(
-          asset: 'assets/images/projects/quartz/03_subscription.jpg',
-          caption: 'Subscription — unlocking message requests',
-          aspectRatio: 375 / 1013,
+          asset: 'assets/images/projects/quartz/03_thread.jpg',
+          caption: 'Post thread — replies and likes',
+          aspectRatio: 555 / 1200,
+          hasDeviceFrame: true,
         ),
         Screenshot(
-          asset: 'assets/images/projects/quartz/04_privacy.jpg',
-          caption: 'Privacy — location, discovery and anonymity controls',
-          aspectRatio: 375 / 812,
+          asset: 'assets/images/projects/quartz/04_nearby.jpg',
+          caption: 'Nearby — discover people within range',
+          aspectRatio: 555 / 1200,
+          hasDeviceFrame: true,
+        ),
+        Screenshot(
+          asset: 'assets/images/projects/quartz/05_profile.jpg',
+          caption: 'Profile — stats, points and account settings',
+          aspectRatio: 555 / 1200,
+          hasDeviceFrame: true,
         ),
       ],
     ),
@@ -370,6 +605,7 @@ abstract final class PortfolioData {
           'features and a Flutter Web admin dashboard.',
       tint: Color(0xFFBB8FCE),
       icon: Icons.theaters_rounded,
+      iconAsset: 'assets/images/projects/yourseat/icon.png',
       features: [
         'Onboarding and movie discovery — Now Playing and Coming Soon',
         'Interactive seat map with available, reserved and VIP seats',
@@ -410,60 +646,257 @@ abstract final class PortfolioData {
     ),
   ];
 
-  /// Named in the CV, no screenshots supplied. Qarar carries a full description
-  /// because the CV gives it one.
+  /// Named in the CV, no screenshots supplied.
   static const List<AdditionalProject> additionalProjects = [
     AdditionalProject(
-      name: 'Qarar',
-      category: 'Consultation booking · Egypt',
+      name: 'Trimly',
+      category: 'Freelancer booking application',
       contribution: 'UI development · REST API integration',
+      icon: Icons.content_cut_rounded,
       description:
-          'Scheduling platform for voice and video consultations with doctors, '
-          'lawyers and financial advisors, including a document upload flow for '
-          'charity committees.',
-      icon: Icons.medical_services_rounded,
-    ),
-    AdditionalProject(
-      name: 'Shahy Eissa',
-      category: 'Flutter application',
-      contribution: 'UI development · REST API integration',
-      icon: Icons.shopping_bag_rounded,
+          'Built customer booking requests (upcoming/completed/complaints), '
+          'the freelancer chat, freelancer profile and portfolio '
+          '(image/video/PDF), freelancer wallet, push notifications for both '
+          'roles, and map-based location selection for subscriptions. '
+          'Developed the UI and integrated RESTful APIs using Clean '
+          'Architecture with Cubit state management.',
+      technologies: [
+        'Flutter',
+        'Dart',
+        'BLoC/Cubit',
+        'Clean Architecture',
+        'RESTful APIs',
+        'Dio',
+        'Dartz',
+        'GetIt',
+        'Firebase Cloud Messaging',
+        'Flutter Local Notifications',
+        'Google Maps',
+        'Easy Localization',
+        'ScreenUtil',
+        'Image Picker',
+        'File Picker',
+        'Video Player',
+        'Syncfusion PDF Viewer',
+      ],
     ),
     AdditionalProject(
       name: 'MAS',
       category: 'Multi-service application',
-      contribution: 'Flutter development',
+      contribution: 'Networking layer · REST API integration · UI',
       icon: Icons.dashboard_customize_rounded,
+      description:
+          'Built the networking layer and connected the app to the backend: '
+          'phone OTP login, onboarding, profile and logout, orders list and '
+          'details, order tracking, Help Center, Loyalty Points, Rewards and '
+          'Referral, Terms and Privacy. Redesigned the onboarding, language, '
+          'and service-detail screens with a feature-based Clean '
+          'Architecture. Developed the UI and integrated RESTful APIs using '
+          'Bloc/Cubit.',
+      technologies: [
+        'Flutter',
+        'Dart',
+        'Bloc/Cubit',
+        'Dio',
+        'RESTful APIs',
+        'GetIt',
+        'Dartz',
+        'Easy Localization',
+        'Flutter ScreenUtil',
+        'SharedPreferences',
+        'Connectivity Plus',
+        'Flutter SVG',
+        'URL Launcher',
+        'Shimmer',
+        'Intl',
+      ],
+    ),
+    AdditionalProject(
+      name: 'Rawdy',
+      category: 'Shopify e-commerce application',
+      contribution: 'GraphQL data layer · UI development',
+      icon: Icons.local_mall_rounded,
+      description:
+          'Customer authentication & registration, profile management, '
+          'address book (CRUD, country selection, validation), order history '
+          '& order details, guest mode with auth guard, runtime '
+          'Arabic/English switching with RTL, localized API error handling. '
+          "Migrated the networking layer to Shopify Storefront GraphQL, built "
+          "the data layer, and integrated the APIs into the app's UI.",
+      technologies: [
+        'Flutter',
+        'Dart',
+        'Bloc (Cubit)',
+        'Shopify Storefront API',
+        'GraphQL',
+        'Dio',
+        'GetIt',
+        'Dartz',
+        'Equatable',
+        'Easy Localization',
+        'Flutter ScreenUtil',
+        'SharedPreferences',
+        'Lottie',
+        'Flutter SVG',
+        'Country Code Picker',
+        'Flutter Test',
+      ],
+    ),
+    AdditionalProject(
+      name: 'Shahy Eissa',
+      category: 'Site & worker management application',
+      contribution: 'UI development · REST API integration',
+      icon: Icons.shopping_bag_rounded,
+      description:
+          'Implemented Worker Profile, Site Photos gallery, Materials, '
+          'Reports and Activity Log modules, and enhanced Worker Monitoring, '
+          'Home Manager and Marble Promo screens. Developed the UI and '
+          'integrated RESTful APIs, replacing mock data with live endpoints.',
+      technologies: [
+        'Flutter',
+        'Dart',
+        'Bloc/Cubit',
+        'Dio',
+        'GetIt',
+        'Dartz',
+        'Easy Localization',
+        'ScreenUtil',
+        'Shimmer',
+        'Flutter SVG',
+      ],
+    ),
+    AdditionalProject(
+      name: 'Re3ayaPlus',
+      category: 'Healthcare application',
+      contribution: 'Localization · UI development · REST API integration',
+      icon: Icons.health_and_safety_rounded,
+      description:
+          'Implemented bilingual Arabic/English support (with RTL/LTR) plus '
+          'the Settings, Profile Info, Language Selection and Terms/Support '
+          "screens, and made the network layer send the user's selected "
+          'language. Built new feature screens, integrated the Definitions '
+          'REST endpoint, and refactored large existing screens into '
+          'modular, reusable widgets.',
+      technologies: [
+        'Flutter',
+        'Dart',
+        'Bloc (Cubit)',
+        'easy_localization',
+        'Dio',
+        'dartz',
+        'Flutter ScreenUtil',
+        'flutter_svg',
+        'SharedPreferences',
+      ],
+    ),
+    AdditionalProject(
+      name: 'Yummy Diet',
+      category: 'Diet & meal subscription application',
+      contribution: 'UI development · Shared UI kits · Refactoring',
+      icon: Icons.restaurant_menu_rounded,
+      description:
+          "Built the Yummy Kids module (child profiles, kids' subscription "
+          "and plans, meal selection, Today's Meals, Kids Home, daily gift, "
+          'calorie calculator) and turned repeated Adult/Kids screens into '
+          'shared UI kits (plans, duration, subscription, meal schedule, '
+          'cart, checkout). Refactored existing screens for RTL support, '
+          'accessibility, performance and a consistent design system. '
+          "Developed the UI and restructured teammates' screens into "
+          'reusable, tested components.',
+      technologies: [
+        'Flutter',
+        'Dart',
+        'Bloc (Cubit)',
+        'Equatable',
+        'Easy Localization',
+        'ScreenUtil',
+        'Flutter SVG',
+        'Shared Preferences',
+        'Fortune Wheel',
+        'Flutter Test',
+      ],
+    ),
+    AdditionalProject(
+      name: 'Full Day 24',
+      category: 'Flutter application',
+      contribution: 'UI development',
+      icon: Icons.access_time_filled_rounded,
+      description:
+          'Built the authentication flow (Welcome, Login, Register, OTP '
+          'verification, Forgot/Reset Password) and the account support '
+          'screens (Help/FAQ, Contact Us, Invite Friend, Privacy Policy), '
+          'with bilingual Arabic/English UI, shimmer loading states, and '
+          'reusable form widgets. Developed responsive, pixel-accurate '
+          'Flutter UI with Cubit state management.',
+      technologies: [
+        'Flutter',
+        'Dart',
+        'Bloc (Cubit)',
+        'Flutter ScreenUtil',
+        'Easy Localization',
+        'Shimmer',
+        'Flutter SVG',
+        'Pinput',
+        'Flutter HTML',
+        'URL Launcher',
+      ],
+    ),
+    AdditionalProject(
+      name: 'Fresh Market',
+      category: 'Grocery shopping application',
+      contribution: 'UI development · REST API integration',
+      icon: Icons.local_grocery_store_rounded,
+      description:
+          'Built language switching with backend sync (including the profile '
+          'language settings) and the logout flow. Enhanced the '
+          'Arabic/English localization, Firebase push notifications, the '
+          'order summary breakdown (fees, tax, promo discount, net amount), '
+          'and 401/403 handling that sends the user back to login. Developed '
+          'the UI and integrated RESTful APIs using Cubit state management.',
+      technologies: [
+        'Flutter',
+        'Dart',
+        'Bloc (Cubit)',
+        'Dio',
+        'GetIt',
+        'Dartz',
+        'Easy Localization',
+        'Firebase Cloud Messaging',
+        'Flutter Local Notifications',
+        'SharedPreferences',
+        'Flutter ScreenUtil',
+        'Gradle',
+      ],
+    ),
+    AdditionalProject(
+      name: 'Car Club',
+      category: 'Automotive services application',
+      contribution: 'UI development · State management',
+      icon: Icons.directions_car_rounded,
+      description:
+          'Carnet de Passage booking (multi-step form), International '
+          'Driving License, Customs Clearance with document upload, Quick '
+          'Registration, Payment & Credit Card checkout, Wallet, Order '
+          'Success & Tracking, Branches, Notifications, plus refactoring of '
+          'Auth/OTP, Onboarding and Home flows. Developed the UI and state '
+          'management for these features end-to-end using Bloc/Cubit.',
+      technologies: [
+        'Flutter',
+        'Dart',
+        'Bloc/Cubit',
+        'GetIt',
+        'Easy Localization',
+        'Flutter ScreenUtil',
+        'Flutter SVG',
+        'Image Picker',
+        'Pinput',
+      ],
     ),
     AdditionalProject(
       name: 'Rawnaq',
       category: 'Flutter application',
       contribution: 'UI development',
       icon: Icons.auto_awesome_rounded,
-    ),
-    AdditionalProject(
-      name: 'Trimly',
-      category: 'Flutter application',
-      contribution: 'UI development',
-      icon: Icons.content_cut_rounded,
-    ),
-    AdditionalProject(
-      name: 'Full-day-24',
-      category: 'Flutter application',
-      contribution: 'UI development',
-      icon: Icons.access_time_filled_rounded,
-    ),
-    AdditionalProject(
-      name: 'Car Club',
-      category: 'Flutter application',
-      contribution: 'UI development',
-      icon: Icons.directions_car_rounded,
-    ),
-    AdditionalProject(
-      name: 'Re3ayaPlus',
-      category: 'Flutter application',
-      contribution: 'REST API integration',
-      icon: Icons.health_and_safety_rounded,
     ),
     AdditionalProject(
       name: 'Nagaa',
@@ -480,20 +913,16 @@ abstract final class PortfolioData {
     degree: "BSc. Degree, Information Technology",
     institution: 'Egyptian E-Learning University (EELU)',
     period: 'Sept. 2021 – Jun. 2025 · Grade: A+ (Graduation Project: YourSeat)',
-    location: 'Cairo, Egypt',
+    location: 'Fayoum Branch',
   );
 
   static const List<Certification> certifications = [
     Certification(
       name: 'Flutter Development Diploma',
       issuer: 'Route IT Training Center',
-      detail: 'Accredited by Egyptian Syndicate of Engineers · 120 hours, 5 practical projects',
+      detail: 'May 2023 – Nov. 2023 · Accredited by the Egyptian Syndicate of '
+          'Engineers · 120 hours, 5 practical projects',
     ),
-    Certification(
-      name: 'Information Technology Specialist (ITS)',
-      issuer: 'Certiport',
-    ),
-    Certification(name: 'CCNA', issuer: 'Cisco'),
   ];
 
   static const List<LanguageSkill> languages = [
@@ -583,21 +1012,21 @@ abstract final class PortfolioData {
       deliverables: [
         'Dio client setup & interceptors',
         'JWT Auth & Refresh tokens',
-        'Firebase / Supabase integration',
+        'Firebase integration',
         'Real-time data handling',
       ],
     ),
     ServiceOffering(
-      title: 'RTL & Arabic Localization',
+      title: 'Payments, Maps & Notifications',
       description:
-          'Specialized in Arabic-first and bi-directional interfaces. Complete RTL layout adaptation, localized typography, and multilingual switching.',
-      icon: Icons.translate_rounded,
-      badge: 'Specialty',
+          'Wiring the integrations real products depend on — PayMob payments, Google Maps tracking, and Firebase Cloud Messaging push notifications.',
+      icon: Icons.integration_instructions_rounded,
+      badge: 'Integrations',
       deliverables: [
-        'Bi-directional (RTL/LTR) layouts',
-        'Arabic typography fine-tuning',
-        'Localization (i18n & l10n)',
-        'Context-aware icons & mirrors',
+        'PayMob payment flows',
+        'Google Maps & live tracking',
+        'FCM push notifications',
+        'Local storage with Hive',
       ],
     ),
     ServiceOffering(

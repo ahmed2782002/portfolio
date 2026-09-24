@@ -32,7 +32,7 @@ class AboutSection extends StatelessWidget {
           SectionHeader(
             index: section.index,
             label: section.label,
-            title: 'Arabic-first Flutter,\nfrom API to interface.',
+            title: 'Production Flutter,\nfrom API to interface.',
           ),
           const SizedBox(height: AppSpacing.x4l),
 

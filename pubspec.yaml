@@ -30,9 +30,12 @@ flutter:
     - assets/images/profile/
     - assets/images/projects/book_iraq/
     - assets/images/projects/fresh_driver/
+    - assets/images/projects/laundo/
+    - assets/images/projects/laundo_driver/
+    - assets/images/projects/qarar/
     - assets/images/projects/quartz/
     - assets/images/projects/yourseat/
-    - assets/docs/
+    - assets/cv/
     - assets/icons/
 
   fonts:

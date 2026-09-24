@@ -11,6 +11,7 @@ import '../../shared/widgets/app_button.dart';
 import '../../shared/widgets/hover_builder.dart';
 import '../../shared/widgets/section_header.dart';
 import '../../shared/widgets/section_shell.dart';
+import '../../shared/widgets/tech_chip.dart';
 import '../home/portfolio_section.dart';
 import 'widgets/project_meta_panel.dart';
 import 'widgets/project_switcher.dart';
@@ -430,8 +431,150 @@ class _AdditionalWork extends StatelessWidget {
   }
 }
 
-class _AdditionalCard extends StatelessWidget {
+/// A compact tile that expands in place to reveal what was built and the stack.
+///
+/// Tapping anywhere on the card toggles it; the chevron rotates to point up
+/// while open. Tiles with nothing to reveal stay static.
+class _AdditionalCard extends StatefulWidget {
   const _AdditionalCard({required this.project});
+
+  final AdditionalProject project;
+
+  @override
+  State<_AdditionalCard> createState() => _AdditionalCardState();
+}
+
+class _AdditionalCardState extends State<_AdditionalCard> {
+  bool _expanded = false;
+
+  void _toggle() => setState(() => _expanded = !_expanded);
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.colors;
+    final type = context.type;
+    final project = widget.project;
+    final expandable = project.hasDetails;
+
+    return HoverBuilder(
+      onTap: expandable ? _toggle : null,
+      semanticLabel: expandable
+          ? '${project.name}, ${_expanded ? 'collapse' : 'expand'} details'
+          : null,
+      builder: (context, hover, _) {
+        // Keep the highlighted state while open, not only while hovered.
+        final t = _expanded ? 1.0 : hover;
+
+        return Transform.translate(
+          offset: Offset(0, -3 * hover),
+          child: Container(
+            padding: const EdgeInsets.all(AppSpacing.lg),
+            decoration: BoxDecoration(
+              color: Color.lerp(colors.card, colors.cardHover, t),
+              borderRadius: AppRadius.brMd,
+              border: Border.all(
+                color: Color.lerp(
+                  colors.border,
+                  colors.primary.withValues(alpha: 0.4),
+                  t,
+                )!,
+              ),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    if (project.icon != null) ...[
+                      Container(
+                        width: 28,
+                        height: 28,
+                        margin: const EdgeInsets.only(right: AppSpacing.sm),
+                        decoration: BoxDecoration(
+                          color: Color.lerp(
+                            colors.surface,
+                            colors.primary.withValues(alpha: 0.12),
+                            t,
+                          ),
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(
+                            color: Color.lerp(
+                              colors.border,
+                              colors.primary.withValues(alpha: 0.35),
+                              t,
+                            )!,
+                          ),
+                        ),
+                        child: Center(
+                          child: Icon(
+                            project.icon,
+                            size: 15,
+                            color: Color.lerp(
+                                colors.textSecondary, colors.primary, t),
+                          ),
+                        ),
+                      ),
+                    ],
+                    Expanded(
+                      child: Text(
+                        project.name,
+                        style: type.subtitle.copyWith(
+                          color: colors.textPrimary,
+                          fontSize: type.subtitle.fontSize! * 0.85,
+                        ),
+                      ),
+                    ),
+                    if (expandable)
+                      AnimatedRotation(
+                        turns: _expanded ? 0.5 : 0,
+                        duration: AppAnimations.base,
+                        curve: AppAnimations.standard,
+                        child: Icon(
+                          Icons.keyboard_arrow_down_rounded,
+                          size: 22,
+                          color: Color.lerp(
+                              colors.textTertiary, colors.primary, t),
+                        ),
+                      ),
+                  ],
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  project.category,
+                  style: type.labelSmall.copyWith(color: colors.textTertiary),
+                ),
+                const SizedBox(height: AppSpacing.md),
+                Container(height: 1, color: colors.border),
+                const SizedBox(height: AppSpacing.sm),
+                Text(
+                  project.contribution,
+                  style: type.labelSmall.copyWith(color: colors.textSecondary),
+                ),
+                if (expandable)
+                  AnimatedCrossFade(
+                    duration: AppAnimations.base,
+                    sizeCurve: AppAnimations.standard,
+                    firstCurve: AppAnimations.standard,
+                    secondCurve: AppAnimations.standard,
+                    crossFadeState: _expanded
+                        ? CrossFadeState.showSecond
+                        : CrossFadeState.showFirst,
+                    firstChild: const SizedBox(width: double.infinity),
+                    secondChild: _AdditionalDetails(project: project),
+                  ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _AdditionalDetails extends StatelessWidget {
+  const _AdditionalDetails({required this.project});
 
   final AdditionalProject project;
 
@@ -440,92 +583,33 @@ class _AdditionalCard extends StatelessWidget {
     final colors = context.colors;
     final type = context.type;
 
-    return HoverBuilder(
-      notifyCursor: false,
-      builder: (context, t, _) => Transform.translate(
-        offset: Offset(0, -3 * t),
-        child: Container(
-          padding: const EdgeInsets.all(AppSpacing.lg),
-          decoration: BoxDecoration(
-            color: Color.lerp(colors.card, colors.cardHover, t),
-            borderRadius: AppRadius.brMd,
-            border: Border.all(
-              color: Color.lerp(
-                colors.border,
-                colors.primary.withValues(alpha: 0.4),
-                t,
-              )!,
+    return Padding(
+      padding: const EdgeInsets.only(top: AppSpacing.md),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (project.description != null) ...[
+            Text(
+              'OVERVIEW',
+              style: type.labelSmall.copyWith(color: colors.textTertiary),
             ),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  if (project.icon != null) ...[
-                    Container(
-                      width: 28,
-                      height: 28,
-                      margin: const EdgeInsets.only(right: AppSpacing.sm),
-                      decoration: BoxDecoration(
-                        color: Color.lerp(
-                          colors.surface,
-                          colors.primary.withValues(alpha: 0.12),
-                          t,
-                        ),
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(
-                          color: Color.lerp(
-                            colors.border,
-                            colors.primary.withValues(alpha: 0.35),
-                            t,
-                          )!,
-                        ),
-                      ),
-                      child: Center(
-                        child: Icon(
-                          project.icon,
-                          size: 15,
-                          color: Color.lerp(colors.textSecondary, colors.primary, t),
-                        ),
-                      ),
-                    ),
-                  ],
-                  Expanded(
-                    child: Text(
-                      project.name,
-                      style: type.subtitle.copyWith(
-                        color: colors.textPrimary,
-                        fontSize: type.subtitle.fontSize! * 0.85,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 2),
-              Text(
-                project.category,
-                style: type.labelSmall.copyWith(color: colors.textTertiary),
-              ),
-              if (project.description != null) ...[
-                const SizedBox(height: AppSpacing.sm),
-                Text(
-                  project.description!,
-                  style: type.bodySmall.copyWith(color: colors.textSecondary),
-                ),
-              ],
-              const SizedBox(height: AppSpacing.md),
-              Container(height: 1, color: colors.border),
-              const SizedBox(height: AppSpacing.sm),
-              Text(
-                project.contribution,
-                style: type.labelSmall.copyWith(color: colors.textSecondary),
-              ),
-            ],
-          ),
-        ),
+            const SizedBox(height: AppSpacing.xs),
+            Text(
+              project.description!,
+              style: type.bodySmall.copyWith(color: colors.textSecondary),
+            ),
+          ],
+          if (project.technologies.isNotEmpty) ...[
+            const SizedBox(height: AppSpacing.md),
+            Text(
+              'TECHNOLOGIES',
+              style: type.labelSmall.copyWith(color: colors.textTertiary),
+            ),
+            const SizedBox(height: AppSpacing.sm),
+            TechChipRail(items: project.technologies, dense: true),
+          ],
+        ],
       ),
     );
   }

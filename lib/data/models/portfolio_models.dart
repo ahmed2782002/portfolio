@@ -156,6 +156,7 @@ class Project {
     required this.screenshots,
     required this.tint,
     required this.icon,
+    this.iconAsset,
     this.bannerAsset,
     this.liveUrl,
     this.sourceUrl,
@@ -184,6 +185,10 @@ class Project {
   /// Icon representing the product's domain or function.
   final IconData icon;
 
+  /// The product's real app icon. When present it replaces [icon] in the
+  /// project switcher.
+  final String? iconAsset;
+
   final String? bannerAsset;
 
   /// Not present in the CV — nullable so the buttons simply don't render.
@@ -199,6 +204,7 @@ class AdditionalProject {
     required this.category,
     required this.contribution,
     this.description,
+    this.technologies = const [],
     this.icon,
   });
 
@@ -208,8 +214,14 @@ class AdditionalProject {
   /// e.g. "UI development", "REST API integration".
   final String contribution;
 
-  /// Present only where the CV gives one.
+  /// Present only where the CV gives one. Revealed when the card is expanded.
   final String? description;
+
+  /// Stack used on the project, revealed alongside [description].
+  final List<String> technologies;
+
+  /// Whether the card has anything to reveal on tap.
+  bool get hasDetails => description != null || technologies.isNotEmpty;
 
   /// Optional domain icon.
   final IconData? icon;

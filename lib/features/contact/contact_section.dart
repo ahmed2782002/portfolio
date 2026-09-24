@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../core/constants/app_spacing.dart';
 import '../../core/extensions/context_extensions.dart';
@@ -122,32 +121,22 @@ class _Actions extends StatelessWidget {
   Widget build(BuildContext context) {
     final profile = PortfolioData.profile;
 
+    // The social icon row lives in the hero; repeating it here was noise.
     return RevealOnScroll(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Wrap(
+        spacing: AppSpacing.sm,
+        runSpacing: AppSpacing.sm,
         children: [
-          Wrap(
-            spacing: AppSpacing.sm,
-            runSpacing: AppSpacing.sm,
-            children: [
-              AppButton(
-                label: 'Email me',
-                icon: Icons.arrow_outward_rounded,
-                variant: AppButtonVariant.primary,
-                onPressed: () => LinkLauncher.open(context, profile.mailtoUri),
-              ),
-              AppButton(
-                label: 'Download CV',
-                icon: Icons.arrow_downward_rounded,
-                onPressed: onDownloadCv,
-              ),
-            ],
+          AppButton(
+            label: 'Email me',
+            icon: Icons.arrow_outward_rounded,
+            variant: AppButtonVariant.primary,
+            onPressed: () => LinkLauncher.open(context, profile.mailtoUri),
           ),
-          const SizedBox(height: AppSpacing.xl),
-          SocialIconBar(
-            links: PortfolioData.socialLinks,
-            emailUrl: profile.mailtoUri,
-            size: 48,
+          AppButton(
+            label: 'Download CV',
+            icon: Icons.arrow_downward_rounded,
+            onPressed: onDownloadCv,
           ),
         ],
       ),
@@ -193,13 +182,6 @@ class _ChannelTile extends StatelessWidget {
 
   final ContactLink channel;
 
-  static String? _assetFor(ContactKind kind) => switch (kind) {
-        ContactKind.linkedin => 'assets/icons/linkedin-svgrepo-com.svg',
-        ContactKind.github => 'assets/icons/github.png',
-        ContactKind.whatsapp => 'assets/icons/whatsapp-color-svgrepo-com.svg',
-        _ => null,
-      };
-
   IconData get _icon => switch (channel.kind) {
         ContactKind.email => Icons.alternate_email_rounded,
         ContactKind.phone => Icons.call_outlined,
@@ -210,27 +192,13 @@ class _ChannelTile extends StatelessWidget {
         ContactKind.whatsapp => Icons.chat_rounded,
       };
 
-  Widget _buildIcon(Color color) {
-    final asset = _assetFor(channel.kind);
-    if (asset != null) {
-      if (asset.endsWith('.svg')) {
-        return SvgPicture.asset(
-          asset,
-          width: 17,
-          height: 17,
-          colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
-        );
-      } else {
-        return Image.asset(
-          asset,
-          width: 17,
-          height: 17,
-          color: color,
-        );
-      }
-    }
-    return Icon(_icon, size: 17, color: color);
-  }
+  Widget _buildIcon(BuildContext context, Color color) =>
+      SocialIconBar.brandIcon(
+        channel.kind,
+        size: 18,
+        onDark: context.isDark,
+      ) ??
+      Icon(_icon, size: 17, color: color);
 
   @override
   Widget build(BuildContext context) {
@@ -261,6 +229,7 @@ class _ChannelTile extends StatelessWidget {
         child: Row(
           children: [
             _buildIcon(
+              context,
               Color.lerp(
                 colors.textTertiary,
                 colors.primary,

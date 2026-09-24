@@ -38,13 +38,22 @@ class ProjectSwitcher extends StatelessWidget {
     ];
 
     if (!scrollable) {
-      return Row(
-        children: [
-          for (var i = 0; i < tabs.length; i++) ...[
-            if (i > 0) const SizedBox(width: AppSpacing.sm),
-            Expanded(child: tabs[i]),
-          ],
-        ],
+      // A grid of equal-width cards, as many per row as fit at >= 220px.
+      return LayoutBuilder(
+        builder: (context, constraints) {
+          const gap = AppSpacing.sm;
+          final columns = ((constraints.maxWidth + gap) / (220 + gap))
+              .floor()
+              .clamp(1, tabs.length);
+          final width = (constraints.maxWidth - gap * (columns - 1)) / columns;
+          return Wrap(
+            spacing: gap,
+            runSpacing: gap,
+            children: [
+              for (final tab in tabs) SizedBox(width: width, child: tab),
+            ],
+          );
+        },
       );
     }
 
@@ -150,13 +159,23 @@ class _ProjectTab extends StatelessWidget {
                     width: 1,
                   ),
                 ),
-                child: Center(
-                  child: Icon(
-                    project.icon,
-                    size: 20,
-                    color: project.tint,
-                  ),
-                ),
+                child: project.iconAsset != null
+                    ? ClipRRect(
+                        borderRadius: BorderRadius.circular(11),
+                        child: Image.asset(
+                          project.iconAsset!,
+                          fit: BoxFit.cover,
+                          cacheWidth: 120,
+                          filterQuality: FilterQuality.medium,
+                        ),
+                      )
+                    : Center(
+                        child: Icon(
+                          project.icon,
+                          size: 20,
+                          color: project.tint,
+                        ),
+                      ),
               ),
               const SizedBox(width: AppSpacing.sm),
 

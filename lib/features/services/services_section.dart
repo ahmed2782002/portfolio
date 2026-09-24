@@ -44,7 +44,7 @@ class ServicesSection extends StatelessWidget {
             title: 'What I bring to\nyour product team.',
             lead:
                 'Full-cycle Flutter mobile development from UI engineering '
-                'to clean state management, API integration, and RTL localization.',
+                'to clean state management, API integration, and third-party services.',
           ),
           const SizedBox(height: AppSpacing.x4l),
           LayoutBuilder(

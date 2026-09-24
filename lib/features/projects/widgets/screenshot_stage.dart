@@ -11,12 +11,11 @@ import '../../../shared/widgets/device_frame.dart';
 
 /// The interactive screenshot viewer.
 ///
-/// Screens are laid out along a Z axis rather than swapped in place. The
-/// selected screenshot sits forward — larger, square-on, fully opaque and
-/// carrying the shadow — while its neighbours fall back in depth: smaller,
-/// rotated away, dimmed and offset. Picking another screenshot animates the
-/// whole rank, so the new one physically travels to the front while the old one
-/// recedes.
+/// The selected screenshot sits forward in the centre — full size, fully
+/// opaque and carrying the shadow — while its neighbours sit behind it on
+/// either side, smaller and dimmed. Picking another screenshot slides the
+/// whole rank, so the new one travels into the centre while the old one
+/// recedes to the side.
 ///
 /// One `AnimationController` drives a continuous `position` value; every plate
 /// derives its transform from its distance to that value. That is what lets a
@@ -57,8 +56,7 @@ class _ScreenshotStageState extends State<ScreenshotStage>
   /// Live position while a drag is in flight; `null` when animating.
   double? _dragPosition;
 
-  /// How many neighbours stay mounted on each side. Beyond this the plates are
-  /// invisible anyway, and not building them keeps the image cache small.
+  /// How many neighbours stay visible on each side of the active plate.
   static const int _visibleRadius = 2;
 
   @override
@@ -131,7 +129,6 @@ class _ScreenshotStageState extends State<ScreenshotStage>
   @override
   Widget build(BuildContext context) {
     final count = widget.screenshots.length;
-    final reduce = context.reduceMotion;
 
     return LayoutBuilder(
       builder: (context, constraints) {
@@ -170,7 +167,7 @@ class _ScreenshotStageState extends State<ScreenshotStage>
                   width: double.infinity,
                   child: AnimatedBuilder(
                     animation: _controller,
-                    builder: (context, _) => _buildRank(spread, reduce),
+                    builder: (context, _) => _buildRank(spread),
                   ),
                 ),
               ),
@@ -181,19 +178,15 @@ class _ScreenshotStageState extends State<ScreenshotStage>
     );
   }
 
-  Widget _buildRank(double spread, bool reduceMotion) {
+  Widget _buildRank(double spread) {
     final position = _currentPosition;
     final count = widget.screenshots.length;
 
-    // Only mount what is close enough to be seen…
-    final visible = <int>[
-      for (var i = 0; i < count; i++)
-        if ((i - position).abs() <= _visibleRadius + 0.5) i,
-    ];
-
-    // …and paint from the back forward so the active plate lands on top without
-    // needing an explicit z-index.
-    visible.sort((a, b) => (b - position).abs().compareTo((a - position).abs()));
+    // Every plate stays mounted (galleries are short) so none has to decode and
+    // fade in mid-transition; far plates are simply transparent. Paint from the
+    // back forward so the active plate lands on top without a z-index.
+    final visible = List<int>.generate(count, (i) => i)
+      ..sort((a, b) => (b - position).abs().compareTo((a - position).abs()));
 
     return Stack(
       alignment: Alignment.center,
@@ -207,7 +200,6 @@ class _ScreenshotStageState extends State<ScreenshotStage>
             spread: spread,
             height: widget.height,
             tint: widget.tint,
-            reduceMotion: reduceMotion,
             onTap: index == widget.activeIndex
                 ? null
                 : () => widget.onSelect(index),
@@ -234,7 +226,6 @@ class _Plate extends StatelessWidget {
     required this.spread,
     required this.height,
     required this.tint,
-    required this.reduceMotion,
     required this.onTap,
     required this.label,
   });
@@ -247,7 +238,6 @@ class _Plate extends StatelessWidget {
   final double spread;
   final double height;
   final Color tint;
-  final bool reduceMotion;
   final VoidCallback? onTap;
   final String label;
 
@@ -256,43 +246,33 @@ class _Plate extends StatelessWidget {
     final d = distance;
     final abs = d.abs();
 
-    // Compress travel for distant plates so the rank stacks instead of
-    // marching off the edge of the stage.
-    final offsetX = spread * d.sign * math.pow(abs, 0.78);
-    final scale = (1 - 0.13 * abs).clamp(0.62, 1.0);
-    final opacity = (1 - 0.30 * abs).clamp(0.0, 1.0);
+    // Flat depth: the active plate is full size and opaque; neighbours sit
+    // behind it, smaller and dimmer. No rotation or perspective — those made
+    // the plates shimmer while travelling.
+    final offsetX = spread * d.sign * math.pow(abs, 0.85);
+    final scale = (1 - 0.16 * abs).clamp(0.6, 1.0);
+    final opacity = abs > _ScreenshotStageState._visibleRadius + 0.5
+        ? 0.0
+        : (1 - 0.32 * abs).clamp(0.0, 1.0);
     final elevation = (1 - 0.55 * abs).clamp(0.0, 1.0);
 
-    // Depth cues: plates rotate away from the viewer and sink back in Z.
-    final rotation = reduceMotion ? 0.0 : (-d * 0.26).clamp(-0.55, 0.55);
-    final depth = reduceMotion ? 0.0 : -abs * 110.0;
-    final lift = -abs * 6;
-
-    final width = ScreenshotPlate.widthForHeight(screenshot, height * scale);
+    // Laid out at full height and shrunk with a transform, never re-laid out:
+    // a constant width keeps the image's decode size constant, so the picture
+    // is decoded once instead of on every animation frame (the old flicker).
+    final width = ScreenshotPlate.widthForHeight(screenshot, height);
 
     final transform = Matrix4.identity()
-      ..setEntry(3, 2, 0.0011)
-      ..translateByDouble(offsetX, lift, depth, 1)
-      ..rotateY(rotation);
+      ..translateByDouble(offsetX, 0, 0, 1)
+      ..scaleByDouble(scale, scale, 1, 1);
 
-    Widget plate = ScreenshotPlate(
-      screenshot: screenshot,
-      width: width,
-      elevation: elevation,
-      tint: tint,
+    Widget plate = RepaintBoundary(
+      child: ScreenshotPlate(
+        screenshot: screenshot,
+        width: width,
+        elevation: elevation,
+        tint: tint,
+      ),
     );
-
-    // Recede visually as well as geometrically: distant plates wash toward the
-    // page colour so the eye lands on the active one.
-    if (abs > 0.01) {
-      plate = ColorFiltered(
-        colorFilter: ColorFilter.mode(
-          context.colors.background.withValues(alpha: (0.30 * abs).clamp(0, 0.55)),
-          BlendMode.srcATop,
-        ),
-        child: plate,
-      );
-    }
 
     if (onTap != null) {
       plate = MouseRegion(

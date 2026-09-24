@@ -36,6 +36,8 @@ class AppColors extends ThemeExtension<AppColors> {
     required this.error,
     required this.shadow,
     required this.scrim,
+    required this.footer,
+    required this.onFooter,
   });
 
   final Brightness brightness;
@@ -82,6 +84,13 @@ class AppColors extends ThemeExtension<AppColors> {
   final Color shadow;
   final Color scrim;
 
+  /// Closing site footer. Inverted against the canvas: darker than the page in
+  /// light mode, lighter than the page in dark mode.
+  final Color footer;
+
+  /// Text and icons on [footer].
+  final Color onFooter;
+
   bool get isDark => brightness == Brightness.dark;
 
   // ---------------------------------------------------------------------------
@@ -124,6 +133,8 @@ class AppColors extends ThemeExtension<AppColors> {
     error: Color(0xFFE74C3C),
     shadow: Color(0x142C3E50),
     scrim: Color(0xD9E6E0F8),
+    footer: Color(0xFF1F2B38),
+    onFooter: white,
   );
 
   // ---------------------------------------------------------------------------
@@ -152,6 +163,8 @@ class AppColors extends ThemeExtension<AppColors> {
     error: Color(0xFFE74C3C),
     shadow: Color(0x80000000),
     scrim: Color(0xE61B242F),
+    footer: Color(0xFF2E4257),
+    onFooter: white,
   );
 
   @override
@@ -177,6 +190,8 @@ class AppColors extends ThemeExtension<AppColors> {
     Color? error,
     Color? shadow,
     Color? scrim,
+    Color? footer,
+    Color? onFooter,
   }) {
     return AppColors(
       brightness: brightness ?? this.brightness,
@@ -200,6 +215,8 @@ class AppColors extends ThemeExtension<AppColors> {
       error: error ?? this.error,
       shadow: shadow ?? this.shadow,
       scrim: scrim ?? this.scrim,
+      footer: footer ?? this.footer,
+      onFooter: onFooter ?? this.onFooter,
     );
   }
 
@@ -231,6 +248,8 @@ class AppColors extends ThemeExtension<AppColors> {
       error: Color.lerp(error, other.error, t)!,
       shadow: Color.lerp(shadow, other.shadow, t)!,
       scrim: Color.lerp(scrim, other.scrim, t)!,
+      footer: Color.lerp(footer, other.footer, t)!,
+      onFooter: Color.lerp(onFooter, other.onFooter, t)!,
     );
   }
 }
