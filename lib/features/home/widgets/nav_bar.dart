@@ -1,27 +1,26 @@
-import 'dart:ui' show ImageFilter;
-
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../core/constants/app_animations.dart';
-import '../../../core/constants/app_spacing.dart';
-import '../../../core/extensions/context_extensions.dart';
-import '../../../core/theme/app_colors.dart';
-import '../../../data/portfolio_data.dart';
-import '../../../shared/widgets/app_button.dart';
-import '../../../shared/widgets/hover_builder.dart';
-import '../../../shared/widgets/theme_toggle.dart';
-import '../portfolio_section.dart';
+import 'package:portfolio/core/constants/app_animations.dart';
+import 'package:portfolio/core/constants/app_spacing.dart';
+import 'package:portfolio/core/extensions/context_extensions.dart';
+import 'package:portfolio/features/home/models/portfolio_section.dart';
+import 'package:portfolio/features/home/widgets/nav_item.dart';
+import 'package:portfolio/features/home/widgets/nav_wordmark.dart';
+import 'package:portfolio/shared/widgets/app_button.dart';
+import 'package:portfolio/shared/widgets/app_icon_button.dart';
+import 'package:portfolio/shared/widgets/theme_toggle.dart';
 
 /// Sticky top navigation.
 ///
 /// Two states, cross-faded on scroll: transparent and roomy at the top of the
-/// page, then condensed onto a blurred, bordered bar once content passes under
-/// it. The active-section indicator is an underline that grows on the current
-/// item as it shrinks on the last — the travel reads as one indicator moving.
+/// page, then condensed onto a solid, bordered bar once content passes under
+/// it. The bar deliberately has no backdrop blur: on the web a blur has to be
+/// recomputed over the moving page on every scroll frame, which made it the
+/// most expensive thing the site painted.
 class NavBar extends StatelessWidget {
   const NavBar({
     super.key,
+    required this.shortName,
     required this.active,
     required this.onNavigate,
     required this.condensed,
@@ -31,6 +30,7 @@ class NavBar extends StatelessWidget {
     required this.onDownloadCv,
   });
 
+  final String shortName;
   final PortfolioSection active;
   final ValueChanged<PortfolioSection> onNavigate;
 
@@ -54,6 +54,7 @@ class NavBar extends StatelessWidget {
       duration: AppAnimations.base,
       curve: AppAnimations.standard,
       height: condensed ? heightCondensed : heightExpanded,
+      padding: EdgeInsets.symmetric(horizontal: context.gutter),
       decoration: BoxDecoration(
         color: condensed ? colors.scrim : Colors.transparent,
         border: Border(
@@ -62,183 +63,49 @@ class NavBar extends StatelessWidget {
           ),
         ),
       ),
-      child: ClipRect(
-        child: BackdropFilter(
-          filter: condensed
-              ? ImageFilter.blur(sigmaX: 18, sigmaY: 18)
-              : ImageFilter.blur(sigmaX: 0.001, sigmaY: 0.001),
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: context.gutter),
-            child: Center(
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(
-                  maxWidth: AppSpacing.maxContentWidth,
-                ),
-                child: Row(
-                  children: [
-                    _Wordmark(onTap: () => onNavigate(PortfolioSection.home)),
-                    const Spacer(),
-                    if (!compact) ...[
-                      for (final section in PortfolioSection.navItems)
-                        _NavItem(
-                          section: section,
-                          isActive: section == active,
-                          onTap: () => onNavigate(section),
-                        ),
-                      const SizedBox(width: AppSpacing.lg),
-                      Container(
-                        width: 1,
-                        height: 22,
-                        color: colors.border,
-                      ),
-                      const SizedBox(width: AppSpacing.lg),
-                      AppButton(
-                        label: 'CV',
-                        icon: Icons.arrow_downward_rounded,
-                        variant: AppButtonVariant.quiet,
-                        onPressed: onDownloadCv,
-                      ),
-                      const SizedBox(width: AppSpacing.lg),
-                    ],
-                    ThemeToggle(isDark: isDark, onToggle: onToggleTheme),
-                    if (compact) ...[
-                      const SizedBox(width: AppSpacing.xs),
-                      AppIconButton(
-                        icon: Icons.menu_rounded,
-                        tooltip: 'Open menu',
-                        onPressed: onOpenMenu,
-                      ),
-                    ],
-                  ],
-                ),
+      child: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(
+            maxWidth: AppSpacing.maxContentWidth,
+          ),
+          child: Row(
+            children: [
+              NavWordmark(
+                name: shortName,
+                onTap: () => onNavigate(PortfolioSection.home),
               ),
-            ),
+              const Spacer(),
+              if (!compact) ...[
+                for (final section in PortfolioSection.navItems)
+                  NavItem(
+                    section: section,
+                    isActive: section == active,
+                    onTap: () => onNavigate(section),
+                  ),
+                const SizedBox(width: AppSpacing.lg),
+                Container(width: 1, height: 22, color: colors.border),
+                const SizedBox(width: AppSpacing.lg),
+                AppButton(
+                  label: 'CV',
+                  icon: Icons.arrow_downward_rounded,
+                  variant: AppButtonVariant.quiet,
+                  onPressed: onDownloadCv,
+                ),
+                const SizedBox(width: AppSpacing.lg),
+              ],
+              ThemeToggle(isDark: isDark, onToggle: onToggleTheme),
+              if (compact) ...[
+                const SizedBox(width: AppSpacing.xs),
+                AppIconButton(
+                  icon: Icons.menu_rounded,
+                  tooltip: 'Open menu',
+                  onPressed: onOpenMenu,
+                ),
+              ],
+            ],
           ),
         ),
       ),
-    );
-  }
-}
-
-/// Tiger mark plus the full name, which drops away on narrow layouts.
-class _Wordmark extends StatelessWidget {
-  const _Wordmark({required this.onTap});
-
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = context.colors;
-    final type = context.type;
-
-    return HoverBuilder(
-      onTap: onTap,
-      semanticLabel: 'Back to top',
-      builder: (context, t, _) => Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            width: 32,
-            height: 32,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: Color.lerp(
-                colors.isDark ? colors.primary : colors.textPrimary,
-                colors.isDark ? AppColors.modernMint : const Color(0xFF1E2833),
-                t,
-              ),
-              borderRadius: BorderRadius.circular(8),
-              boxShadow: [
-                BoxShadow(
-                  color: (colors.isDark ? colors.primary : colors.shadow)
-                      .withValues(alpha: 0.25 * t),
-                  blurRadius: 14 * t,
-                  offset: Offset(0, 3 * t),
-                ),
-              ],
-            ),
-            child: SvgPicture.asset(
-              'assets/icons/tiger.svg',
-              width: 22,
-              height: 22,
-              semanticsLabel: 'Tiger logo',
-              colorFilter: ColorFilter.mode(
-                colors.isDark ? colors.onPrimary : AppColors.white,
-                BlendMode.srcIn,
-              ),
-            ),
-          ),
-          if (context.screen.index >= 1) ...[
-            const SizedBox(width: AppSpacing.sm),
-            Text(
-              PortfolioData.profile.shortName,
-              style: type.bodyStrong.copyWith(
-                color: Color.lerp(colors.textPrimary, colors.primary, t),
-                fontFamily: 'SpaceGrotesk',
-                letterSpacing: -0.2,
-              ),
-            ),
-          ],
-        ],
-      ),
-    );
-  }
-}
-
-class _NavItem extends StatelessWidget {
-  const _NavItem({
-    required this.section,
-    required this.isActive,
-    required this.onTap,
-  });
-
-  final PortfolioSection section;
-  final bool isActive;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = context.colors;
-
-    return HoverBuilder(
-      onTap: onTap,
-      semanticLabel: 'Go to ${section.label}',
-      builder: (context, hover, _) {
-        final emphasis = isActive ? 1.0 : hover;
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                section.label,
-                style: context.type.bodySmall.copyWith(
-                  color: Color.lerp(
-                    colors.textSecondary,
-                    isActive ? colors.textPrimary : colors.primary,
-                    emphasis,
-                  ),
-                  fontWeight: isActive ? FontWeight.w500 : FontWeight.w400,
-                ),
-              ),
-              const SizedBox(height: 5),
-              // The indicator: full width when active, a short stub on hover.
-              AnimatedContainer(
-                duration: AppAnimations.base,
-                curve: AppAnimations.emphasized,
-                height: 2,
-                width: isActive ? 18 : 10 * hover,
-                decoration: BoxDecoration(
-                  color: isActive
-                      ? colors.primary
-                      : colors.primary.withValues(alpha: 0.5 * hover),
-                  borderRadius: AppRadius.brPill,
-                ),
-              ),
-            ],
-          ),
-        );
-      },
     );
   }
 }

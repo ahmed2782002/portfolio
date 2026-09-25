@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../core/constants/app_animations.dart';
-import '../../core/extensions/context_extensions.dart';
-import 'cursor_layer.dart';
+import 'package:portfolio/core/constants/app_animations.dart';
+import 'package:portfolio/shared/widgets/cursor_layer.dart';
 
 /// Drives a 0→1 animation from pointer hover and exposes it to a builder.
 ///
@@ -88,7 +87,8 @@ class _HoverBuilderState extends State<HoverBuilder>
     Widget result = AnimatedBuilder(
       animation: _curved,
       child: widget.child,
-      builder: (context, child) => widget.builder(context, _curved.value, child),
+      builder: (context, child) =>
+          widget.builder(context, _curved.value, child),
     );
 
     if (!widget.enabled) return result;
@@ -113,67 +113,6 @@ class _HoverBuilderState extends State<HoverBuilder>
       onEnter: (_) => _setHover(true),
       onExit: (_) => _setHover(false),
       child: result,
-    );
-  }
-}
-
-/// A card-like container that lifts, brightens and tightens its border on hover.
-/// Used for skill panels, additional-project tiles and contact rows.
-class HoverCard extends StatelessWidget {
-  const HoverCard({
-    super.key,
-    required this.child,
-    this.onTap,
-    this.padding = const EdgeInsets.all(24),
-    this.borderRadius,
-    this.lift = 4,
-    this.accent,
-  });
-
-  final Widget child;
-  final VoidCallback? onTap;
-  final EdgeInsets padding;
-  final BorderRadius? borderRadius;
-
-  /// How far the card rises on hover.
-  final double lift;
-
-  /// Border/glow colour on hover. Defaults to the indigo accent.
-  final Color? accent;
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = context.colors;
-    final radius = borderRadius ?? BorderRadius.circular(14);
-    final highlight = accent ?? colors.primary;
-
-    return HoverBuilder(
-      onTap: onTap,
-      cursor: onTap != null ? SystemMouseCursors.click : MouseCursor.defer,
-      notifyCursor: onTap != null,
-      child: child,
-      builder: (context, t, child) => Transform.translate(
-        offset: Offset(0, -lift * t),
-        child: DecoratedBox(
-          decoration: BoxDecoration(
-            color: Color.lerp(colors.card, colors.cardHover, t),
-            borderRadius: radius,
-            border: Border.all(
-              color: Color.lerp(colors.border, highlight.withValues(alpha: 0.5), t)!,
-            ),
-            boxShadow: t == 0
-                ? null
-                : [
-                    BoxShadow(
-                      color: colors.shadow,
-                      blurRadius: 24 * t,
-                      offset: Offset(0, 8 * t),
-                    ),
-                  ],
-          ),
-          child: Padding(padding: padding, child: child),
-        ),
-      ),
     );
   }
 }

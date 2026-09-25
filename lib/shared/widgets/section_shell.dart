@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../core/constants/app_spacing.dart';
-import '../../core/extensions/context_extensions.dart';
+import 'package:portfolio/core/constants/app_spacing.dart';
+import 'package:portfolio/core/extensions/context_extensions.dart';
 
 /// Standard horizontal frame for a page section.
 ///
@@ -35,10 +35,7 @@ class SectionShell extends StatelessWidget {
     final pad = verticalPadding ?? context.sectionGap;
 
     Widget content = Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: context.gutter,
-        vertical: pad,
-      ),
+      padding: EdgeInsets.symmetric(horizontal: context.gutter, vertical: pad),
       child: Center(
         child: ConstrainedBox(
           constraints: BoxConstraints(maxWidth: maxWidth),

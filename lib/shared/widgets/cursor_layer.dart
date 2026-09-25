@@ -4,7 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
-import '../../core/extensions/context_extensions.dart';
+import 'package:portfolio/core/extensions/context_extensions.dart';
 
 /// The state a [CursorLayer] ring is drawn from.
 @immutable
@@ -52,8 +52,9 @@ class CursorLayer extends StatefulWidget {
 
   /// Convenience for one-off call sites that already hold a live context.
   static void setActive(BuildContext context, bool value) {
-    context.getInheritedWidgetOfExactType<_CursorScope>()?.signal
-        .setActive(value);
+    context.getInheritedWidgetOfExactType<_CursorScope>()?.signal.setActive(
+      value,
+    );
   }
 
   @override
@@ -63,8 +64,9 @@ class CursorLayer extends StatefulWidget {
 class _CursorLayerState extends State<CursorLayer>
     with SingleTickerProviderStateMixin {
   final CursorSignal _signal = CursorSignal._();
-  final ValueNotifier<_RingState> _ring =
-      ValueNotifier(const _RingState(position: null, activation: 0));
+  final ValueNotifier<_RingState> _ring = ValueNotifier(
+    const _RingState(position: null, activation: 0),
+  );
 
   late final Ticker _ticker = createTicker(_onTick);
 
@@ -101,7 +103,8 @@ class _CursorLayerState extends State<CursorLayer>
 
     _ring.value = _RingState(position: _current, activation: _activation);
 
-    final settled = target == null ||
+    final settled =
+        target == null ||
         ((_current! - target).distance < 0.4 &&
             (_activation - wantActivation).abs() < 0.004);
     if (settled) {
@@ -160,9 +163,8 @@ class _CursorLayerState extends State<CursorLayer>
                     // The ring positions itself absolutely, so it needs a Stack
                     // of its own here — the RepaintBoundary above would
                     // otherwise be its parent and reject the Positioned.
-                    builder: (context, ring, _) => Stack(
-                      children: [_CursorRing(ring: ring)],
-                    ),
+                    builder: (context, ring, _) =>
+                        Stack(children: [_CursorRing(ring: ring)]),
                   ),
                 ),
               ),

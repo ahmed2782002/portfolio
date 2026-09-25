@@ -2,10 +2,10 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
-import '../../../core/constants/app_spacing.dart';
-import '../../../core/extensions/context_extensions.dart';
-import '../../../data/models/portfolio_models.dart';
-import '../../../shared/widgets/tech_chip.dart';
+import 'package:portfolio/core/constants/app_spacing.dart';
+import 'package:portfolio/core/extensions/context_extensions.dart';
+import 'package:portfolio/data/models/models.dart';
+import 'package:portfolio/shared/widgets/tech_chip.dart';
 
 /// The written half of a project case study.
 ///
@@ -33,9 +33,7 @@ class ProjectMetaPanel extends StatelessWidget {
               decoration: BoxDecoration(
                 color: project.tint.withValues(alpha: 0.12),
                 borderRadius: AppRadius.brXs,
-                border: Border.all(
-                  color: project.tint.withValues(alpha: 0.35),
-                ),
+                border: Border.all(color: project.tint.withValues(alpha: 0.35)),
               ),
               child: Text(
                 project.category.toUpperCase(),
@@ -78,7 +76,11 @@ class ProjectMetaPanel extends StatelessWidget {
           style: type.label.copyWith(color: colors.textTertiary),
         ),
         const SizedBox(height: AppSpacing.sm),
-        TechChipRail(items: project.technologies, accent: project.tint, dense: true),
+        TechChipRail(
+          items: project.technologies,
+          accent: project.tint,
+          dense: true,
+        ),
       ],
     );
   }
@@ -133,9 +135,7 @@ class _MetaGrid extends StatelessWidget {
                   Expanded(
                     child: Text(
                       entries[i].value,
-                      style: type.bodySmall.copyWith(
-                        color: colors.textPrimary,
-                      ),
+                      style: type.bodySmall.copyWith(color: colors.textPrimary),
                     ),
                   ),
                 ],

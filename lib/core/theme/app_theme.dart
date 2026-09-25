@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'app_colors.dart';
-import 'app_typography.dart';
+import 'package:portfolio/core/theme/app_colors.dart';
+import 'package:portfolio/core/theme/app_typography.dart';
 
 /// Builds the two [ThemeData]s from the single [AppColors] palette.
 ///
@@ -48,11 +48,7 @@ abstract final class AppTheme {
         selectionHandleColor: c.primary,
       ),
       iconTheme: IconThemeData(color: c.textSecondary, size: 20),
-      dividerTheme: DividerThemeData(
-        color: c.border,
-        thickness: 1,
-        space: 1,
-      ),
+      dividerTheme: DividerThemeData(color: c.border, thickness: 1, space: 1),
       tooltipTheme: TooltipThemeData(
         decoration: BoxDecoration(
           color: c.textPrimary,
@@ -73,10 +69,7 @@ abstract final class AppTheme {
         bodySmall: type.bodySmall,
         labelLarge: type.label,
         labelSmall: type.labelSmall,
-      ).apply(
-        bodyColor: c.textPrimary,
-        displayColor: c.textPrimary,
-      ),
+      ).apply(bodyColor: c.textPrimary, displayColor: c.textPrimary),
     );
   }
 }

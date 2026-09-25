@@ -38,30 +38,30 @@ abstract final class Breakpoints {
   /// Type scale multiplier per breakpoint. Headlines shrink faster than body
   /// copy, which is why the display styles carry a larger base size.
   static double typeScale(ScreenSize size) => switch (size) {
-        ScreenSize.compact => 0.80,
-        ScreenSize.medium => 0.88,
-        ScreenSize.expanded => 0.93,
-        ScreenSize.large => 1.0,
-        ScreenSize.xlarge => 1.06,
-      };
+    ScreenSize.compact => 0.80,
+    ScreenSize.medium => 0.88,
+    ScreenSize.expanded => 0.93,
+    ScreenSize.large => 1.0,
+    ScreenSize.xlarge => 1.06,
+  };
 
   /// Horizontal page gutter per breakpoint.
   static double gutter(ScreenSize size) => switch (size) {
-        ScreenSize.compact => 20,
-        ScreenSize.medium => 28,
-        ScreenSize.expanded => 40,
-        ScreenSize.large => 56,
-        ScreenSize.xlarge => 72,
-      };
+    ScreenSize.compact => 20,
+    ScreenSize.medium => 28,
+    ScreenSize.expanded => 40,
+    ScreenSize.large => 56,
+    ScreenSize.xlarge => 72,
+  };
 
   /// Vertical rhythm between top-level sections.
   static double sectionGap(ScreenSize size) => switch (size) {
-        ScreenSize.compact => 72,
-        ScreenSize.medium => 88,
-        ScreenSize.expanded => 104,
-        ScreenSize.large => 128,
-        ScreenSize.xlarge => 144,
-      };
+    ScreenSize.compact => 72,
+    ScreenSize.medium => 88,
+    ScreenSize.expanded => 104,
+    ScreenSize.large => 128,
+    ScreenSize.xlarge => 144,
+  };
 }
 
 /// Picks one of a set of values based on the current breakpoint, falling back

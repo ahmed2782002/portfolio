@@ -13,19 +13,19 @@ import 'package:flutter/widgets.dart';
 @immutable
 class AppTypography {
   AppTypography._(this.scale)
-      : display1 = _display(76 * scale, FontWeight.w700, -2.6, 0.96),
-        display2 = _display(56 * scale, FontWeight.w700, -1.8, 1.02),
-        headline = _display(40 * scale, FontWeight.w700, -1.1, 1.10),
-        title = _display(28 * scale, FontWeight.w700, -0.7, 1.18),
-        subtitle = _display(21 * scale, FontWeight.w500, -0.3, 1.30),
-        bodyLarge = _body(18 * scale, FontWeight.w400, 0, 1.62),
-        body = _body(16 * scale, FontWeight.w400, 0, 1.68),
-        bodySmall = _body(14.5 * scale, FontWeight.w400, 0, 1.62),
-        bodyStrong = _body(16 * scale, FontWeight.w500, 0, 1.55),
-        label = _mono(12 * scale, FontWeight.w500, 1.5, 1.2),
-        labelSmall = _mono(11 * scale, FontWeight.w400, 1.2, 1.2),
-        mono = _mono(13.5 * scale, FontWeight.w400, 0.2, 1.5),
-        monoIndex = _mono(13 * scale, FontWeight.w500, 0.6, 1.0);
+    : display1 = _display(76 * scale, FontWeight.w700, -2.6, 0.96),
+      display2 = _display(56 * scale, FontWeight.w700, -1.8, 1.02),
+      headline = _display(40 * scale, FontWeight.w700, -1.1, 1.10),
+      title = _display(28 * scale, FontWeight.w700, -0.7, 1.18),
+      subtitle = _display(21 * scale, FontWeight.w500, -0.3, 1.30),
+      bodyLarge = _body(18 * scale, FontWeight.w400, 0, 1.62),
+      body = _body(16 * scale, FontWeight.w400, 0, 1.68),
+      bodySmall = _body(14.5 * scale, FontWeight.w400, 0, 1.62),
+      bodyStrong = _body(16 * scale, FontWeight.w500, 0, 1.55),
+      label = _mono(12 * scale, FontWeight.w500, 1.5, 1.2),
+      labelSmall = _mono(11 * scale, FontWeight.w400, 1.2, 1.2),
+      mono = _mono(13.5 * scale, FontWeight.w400, 0.2, 1.5),
+      monoIndex = _mono(13 * scale, FontWeight.w500, 0.6, 1.0);
 
   static final Map<double, AppTypography> _cache = {};
 
@@ -73,43 +73,40 @@ class AppTypography {
     FontWeight weight,
     double letterSpacing,
     double height,
-  ) =>
-      TextStyle(
-        fontFamily: displayFamily,
-        fontSize: size,
-        fontWeight: weight,
-        letterSpacing: letterSpacing,
-        height: height,
-        leadingDistribution: TextLeadingDistribution.even,
-      );
+  ) => TextStyle(
+    fontFamily: displayFamily,
+    fontSize: size,
+    fontWeight: weight,
+    letterSpacing: letterSpacing,
+    height: height,
+    leadingDistribution: TextLeadingDistribution.even,
+  );
 
   static TextStyle _body(
     double size,
     FontWeight weight,
     double letterSpacing,
     double height,
-  ) =>
-      TextStyle(
-        fontFamily: bodyFamily,
-        fontSize: size,
-        fontWeight: weight,
-        letterSpacing: letterSpacing,
-        height: height,
-        leadingDistribution: TextLeadingDistribution.even,
-      );
+  ) => TextStyle(
+    fontFamily: bodyFamily,
+    fontSize: size,
+    fontWeight: weight,
+    letterSpacing: letterSpacing,
+    height: height,
+    leadingDistribution: TextLeadingDistribution.even,
+  );
 
   static TextStyle _mono(
     double size,
     FontWeight weight,
     double letterSpacing,
     double height,
-  ) =>
-      TextStyle(
-        fontFamily: monoFamily,
-        fontSize: size,
-        fontWeight: weight,
-        letterSpacing: letterSpacing,
-        height: height,
-        leadingDistribution: TextLeadingDistribution.even,
-      );
+  ) => TextStyle(
+    fontFamily: monoFamily,
+    fontSize: size,
+    fontWeight: weight,
+    letterSpacing: letterSpacing,
+    height: height,
+    leadingDistribution: TextLeadingDistribution.even,
+  );
 }

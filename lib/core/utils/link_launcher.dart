@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../extensions/context_extensions.dart';
+import 'package:portfolio/core/extensions/context_extensions.dart';
 
 /// Opens external URIs — `mailto:`, `tel:` and `https:` — and surfaces a
 /// readable message if the platform refuses.

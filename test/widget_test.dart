@@ -1,35 +1,61 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:portfolio/core/theme/app_theme.dart';
-import 'package:portfolio/data/models/portfolio_models.dart';
-import 'package:portfolio/data/portfolio_data.dart';
-import 'package:portfolio/features/projects/projects_section.dart';
-import 'package:portfolio/shared/widgets/device_frame.dart';
+import 'package:portfolio/core/di/app_scope.dart';
+import 'package:portfolio/core/theme/theme_controller.dart';
+import 'package:portfolio/data/models/models.dart';
+import 'package:portfolio/data/repositories/portfolio_repository.dart';
+import 'package:portfolio/features/projects/view/projects_section.dart';
+import 'package:portfolio/shared/widgets/device/screenshot_plate.dart';
+
+const repository = PortfolioRepository();
 
 /// Wraps a section in just enough app scaffolding to pump it.
-Widget host(Widget child, {Size size = const Size(1440, 1200)}) => MaterialApp(
-      theme: AppTheme.light(),
-      home: MediaQuery(
-        data: MediaQueryData(size: size),
-        child: Scaffold(
-          body: SingleChildScrollView(child: child),
-        ),
-      ),
-    );
+Widget host(Widget child, {Size size = const Size(1440, 1200)}) => AppScope(
+  repository: repository,
+  themeController: ThemeController(mode: ThemeMode.light),
+  child: MaterialApp(
+    theme: AppTheme.light(),
+    home: MediaQuery(
+      data: MediaQueryData(size: size),
+      child: Scaffold(body: SingleChildScrollView(child: child)),
+    ),
+  ),
+);
 
 void main() {
   group('portfolio data', () {
+    test('every image the content references exists on disk', () {
+      final assets = [
+        repository.profile.photoAsset,
+        repository.profile.cvAsset,
+        for (final project in repository.projects) ...[
+          ?project.iconAsset,
+          ?project.bannerAsset,
+          for (final shot in project.screenshots) shot.asset,
+        ],
+      ];
+      for (final asset in assets) {
+        expect(File(asset).existsSync(), isTrue, reason: asset);
+      }
+    });
+
     test('every screenshot asset is declared exactly once', () {
       final assets = [
-        for (final project in PortfolioData.projects)
+        for (final project in repository.projects)
           for (final shot in project.screenshots) shot.asset,
       ];
-      expect(assets.toSet().length, assets.length,
-          reason: 'a screenshot is listed twice');
+      expect(
+        assets.toSet().length,
+        assets.length,
+        reason: 'a screenshot is listed twice',
+      );
     });
 
     test('every project has screenshots, features and a stack', () {
-      for (final project in PortfolioData.projects) {
+      for (final project in repository.projects) {
         expect(project.screenshots, isNotEmpty, reason: project.name);
         expect(project.features, isNotEmpty, reason: project.name);
         expect(project.technologies, isNotEmpty, reason: project.name);
@@ -37,7 +63,7 @@ void main() {
     });
 
     test('screenshot aspect ratios are plausible portrait values', () {
-      for (final project in PortfolioData.projects) {
+      for (final project in repository.projects) {
         for (final shot in project.screenshots) {
           expect(shot.aspectRatio, greaterThan(0.2), reason: shot.asset);
           expect(shot.aspectRatio, lessThan(1.0), reason: shot.asset);
@@ -46,7 +72,7 @@ void main() {
     });
 
     test('contact links carry a scheme where they are actionable', () {
-      for (final link in PortfolioData.contactChannels) {
+      for (final link in repository.contactChannels) {
         if (link.url.isEmpty) continue;
         expect(Uri.parse(link.url).hasScheme, isTrue, reason: link.label);
       }
@@ -86,8 +112,9 @@ void main() {
   });
 
   group('projects showcase', () {
-    testWidgets('opens on the first project and can switch to another',
-        (tester) async {
+    testWidgets('opens on the first project and can switch to another', (
+      tester,
+    ) async {
       tester.view.physicalSize = const Size(1440, 1400);
       tester.view.devicePixelRatio = 1;
       addTearDown(tester.view.reset);
@@ -95,8 +122,8 @@ void main() {
       await tester.pumpWidget(host(const ProjectsSection()));
       await tester.pumpAndSettle();
 
-      final first = PortfolioData.projects[0];
-      final second = PortfolioData.projects[1];
+      final first = repository.projects[0];
+      final second = repository.projects[1];
 
       // The first case study's description is on screen.
       expect(find.text(first.description), findsOneWidget);
@@ -108,8 +135,9 @@ void main() {
       expect(find.text(first.description), findsNothing);
     });
 
-    testWidgets('selecting a screenshot updates the caption and counter',
-        (tester) async {
+    testWidgets('selecting a screenshot updates the caption and counter', (
+      tester,
+    ) async {
       tester.view.physicalSize = const Size(1440, 1400);
       tester.view.devicePixelRatio = 1;
       addTearDown(tester.view.reset);
@@ -117,7 +145,7 @@ void main() {
       await tester.pumpWidget(host(const ProjectsSection()));
       await tester.pumpAndSettle();
 
-      final shots = PortfolioData.projects.first.screenshots;
+      final shots = repository.projects.first.screenshots;
       expect(find.text(shots[0].caption), findsOneWidget);
       expect(find.text('01'), findsWidgets);
 

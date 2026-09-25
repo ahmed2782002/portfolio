@@ -132,7 +132,7 @@ class AppColors extends ThemeExtension<AppColors> {
     success: modernMint,
     error: Color(0xFFE74C3C),
     shadow: Color(0x142C3E50),
-    scrim: Color(0xD9E6E0F8),
+    scrim: Color(0xF2E6E0F8),
     footer: Color(0xFF1F2B38),
     onFooter: white,
   );
@@ -162,7 +162,7 @@ class AppColors extends ThemeExtension<AppColors> {
     success: modernMint,
     error: Color(0xFFE74C3C),
     shadow: Color(0x80000000),
-    scrim: Color(0xE61B242F),
+    scrim: Color(0xF21B242F),
     footer: Color(0xFF2E4257),
     onFooter: white,
   );

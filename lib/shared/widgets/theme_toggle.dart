@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../core/constants/app_animations.dart';
-import '../../core/extensions/context_extensions.dart';
-import 'hover_builder.dart';
+import 'package:portfolio/core/constants/app_animations.dart';
+import 'package:portfolio/core/extensions/context_extensions.dart';
+import 'package:portfolio/shared/widgets/hover_builder.dart';
 
 /// Refined Light/Dark theme toggle.
 ///
