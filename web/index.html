@@ -54,6 +54,10 @@
 
   <link rel="manifest" href="manifest.json">
 
+  <!-- The CanvasKit renderer is fetched from gstatic; open that connection
+       while the bootstrap script is still loading. -->
+  <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+
   <style>
     /* Loading indicator — shown until Flutter mounts its first frame */
     body {
