@@ -897,12 +897,52 @@ abstract final class PortfolioData {
       category: 'Flutter application',
       contribution: 'UI development',
       icon: Icons.auto_awesome_rounded,
+      description:
+          'Built the entire UI of the app end-to-end, every screen and '
+          'flow, with bilingual Arabic/English support (RTL/LTR), shimmer '
+          'loading states, and reusable widgets. Developed responsive, '
+          'pixel-accurate Flutter UI with Cubit state management.',
+      technologies: [
+        'Flutter',
+        'Dart',
+        'Bloc (Cubit)',
+        'Flutter ScreenUtil',
+        'Easy Localization',
+        'Shimmer',
+        'Flutter SVG',
+        'Pinput',
+        'Flutter HTML',
+        'URL Launcher',
+      ],
     ),
     AdditionalProject(
-      name: 'Nagaa',
-      category: 'Flutter application',
-      contribution: 'REST API integration',
-      icon: Icons.storefront_rounded,
+      name: 'Nagaa Driver App',
+      category: 'Delivery rider application',
+      contribution: 'Feature development · REST API integration',
+      icon: Icons.delivery_dining_rounded,
+      description:
+          'A delivery app for riders. Riders register with multi-step '
+          'onboarding and document upload, then manage their profile and '
+          'vehicle details. They can go online or offline with live location '
+          'updates and handle internal and external partner orders with '
+          'detailed order views. The app also covers wallet transaction '
+          'history, a help center, and policy pages loaded from the API. '
+          'Built the auth, profile, orders, and wallet features and '
+          'integrated the RESTful APIs.',
+      technologies: [
+        'Flutter',
+        'Dart',
+        'Cubit',
+        'Clean Architecture',
+        'REST APIs',
+        'Dio',
+        'GetIt',
+        'Dartz',
+        'Google Maps',
+        'Geolocator',
+        'Easy Localization',
+        'Image Picker',
+      ],
     ),
   ];
 
