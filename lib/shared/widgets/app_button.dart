@@ -72,6 +72,13 @@ class AppButton extends StatelessWidget {
               colors.isDark ? colors.onPrimary : AppColors.white,
               null,
             ),
+          // Mint text washes out on the light canvas, so light mode fills the
+          // pill with mint and keeps the label charcoal instead.
+          AppButtonVariant.outline when !colors.isDark => (
+              Color.lerp(Colors.transparent, colors.primary, t)!,
+              colors.textPrimary,
+              Color.lerp(colors.borderStrong, colors.primary, t)!,
+            ),
           AppButtonVariant.outline => (
               Color.lerp(
                 Colors.transparent,
@@ -83,7 +90,11 @@ class AppButton extends StatelessWidget {
             ),
           AppButtonVariant.quiet => (
               Colors.transparent,
-              Color.lerp(colors.textSecondary, colors.primary, t)!,
+              Color.lerp(
+                colors.textSecondary,
+                colors.isDark ? colors.primary : colors.textPrimary,
+                t,
+              )!,
               null,
             ),
         };
