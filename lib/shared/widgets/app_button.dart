@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../core/constants/app_spacing.dart';
-import '../../core/extensions/context_extensions.dart';
-import '../../core/theme/app_colors.dart';
-import 'hover_builder.dart';
+import 'package:portfolio/core/constants/app_spacing.dart';
+import 'package:portfolio/core/extensions/context_extensions.dart';
+import 'package:portfolio/core/theme/app_colors.dart';
+import 'package:portfolio/shared/widgets/hover_builder.dart';
 
 enum AppButtonVariant {
   /// Filled indigo. One per screen, reserved for the primary action.
@@ -59,44 +59,45 @@ class AppButton extends StatelessWidget {
       builder: (context, t, _) {
         final lift = -2.0 * t;
 
-        final (Color background, Color foreground, Color? border) =
-            switch (variant) {
+        final (
+          Color background,
+          Color foreground,
+          Color? border,
+        ) = switch (variant) {
           AppButtonVariant.primary => (
-              Color.lerp(
-                colors.isDark ? colors.primary : colors.textPrimary,
-                colors.isDark
-                    ? AppColors.modernMint
-                    : const Color(0xFF1E2833),
-                t,
-              )!,
-              colors.isDark ? colors.onPrimary : AppColors.white,
-              null,
-            ),
+            Color.lerp(
+              colors.isDark ? colors.primary : colors.textPrimary,
+              colors.isDark ? AppColors.modernMint : const Color(0xFF1E2833),
+              t,
+            )!,
+            colors.isDark ? colors.onPrimary : AppColors.white,
+            null,
+          ),
           // Mint text washes out on the light canvas, so light mode fills the
           // pill with mint and keeps the label charcoal instead.
           AppButtonVariant.outline when !colors.isDark => (
-              Color.lerp(Colors.transparent, colors.primary, t)!,
-              colors.textPrimary,
-              Color.lerp(colors.borderStrong, colors.primary, t)!,
-            ),
+            Color.lerp(Colors.transparent, colors.primary, t)!,
+            colors.textPrimary,
+            Color.lerp(colors.borderStrong, colors.primary, t)!,
+          ),
           AppButtonVariant.outline => (
-              Color.lerp(
-                Colors.transparent,
-                colors.textPrimary.withValues(alpha: 0.06),
-                t,
-              )!,
-              Color.lerp(colors.textPrimary, colors.primary, t)!,
-              Color.lerp(colors.borderStrong, colors.primary, t)!,
-            ),
-          AppButtonVariant.quiet => (
+            Color.lerp(
               Colors.transparent,
-              Color.lerp(
-                colors.textSecondary,
-                colors.isDark ? colors.primary : colors.textPrimary,
-                t,
-              )!,
-              null,
-            ),
+              colors.textPrimary.withValues(alpha: 0.06),
+              t,
+            )!,
+            Color.lerp(colors.textPrimary, colors.primary, t)!,
+            Color.lerp(colors.borderStrong, colors.primary, t)!,
+          ),
+          AppButtonVariant.quiet => (
+            Colors.transparent,
+            Color.lerp(
+              colors.textSecondary,
+              colors.isDark ? colors.primary : colors.textPrimary,
+              t,
+            )!,
+            null,
+          ),
         };
 
         final content = Row(
@@ -175,66 +176,6 @@ class AppButton extends StatelessWidget {
           ),
         );
       },
-    );
-  }
-}
-
-/// A square icon-only control (theme toggle, carousel arrows, menu button).
-class AppIconButton extends StatelessWidget {
-  const AppIconButton({
-    super.key,
-    required this.icon,
-    required this.onPressed,
-    required this.tooltip,
-    this.size = 42,
-    this.bordered = true,
-    this.accent,
-  });
-
-  final IconData icon;
-  final VoidCallback? onPressed;
-  final String tooltip;
-  final double size;
-  final bool bordered;
-  final Color? accent;
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = context.colors;
-    final tint = accent ?? colors.primary;
-    final enabled = onPressed != null;
-
-    return Tooltip(
-      message: tooltip,
-      child: HoverBuilder(
-        onTap: onPressed,
-        enabled: enabled,
-        semanticLabel: tooltip,
-        builder: (context, t, _) => Container(
-          width: size,
-          height: size,
-          decoration: BoxDecoration(
-            color: Color.lerp(
-              colors.card,
-              tint.withValues(alpha: 0.12),
-              enabled ? t : 0,
-            ),
-            borderRadius: AppRadius.brSm,
-            border: bordered
-                ? Border.all(
-                    color: Color.lerp(colors.border, tint, enabled ? t : 0)!,
-                  )
-                : null,
-          ),
-          child: Icon(
-            icon,
-            size: size * 0.42,
-            color: enabled
-                ? Color.lerp(colors.textSecondary, tint, t)
-                : colors.textTertiary.withValues(alpha: 0.5),
-          ),
-        ),
-      ),
     );
   }
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
-import '../../core/constants/app_animations.dart';
-import '../../core/extensions/context_extensions.dart';
+import 'package:portfolio/core/constants/app_animations.dart';
+import 'package:portfolio/core/extensions/context_extensions.dart';
 
 /// Reveals its child once, when it first scrolls into view.
 ///
@@ -99,7 +99,8 @@ class _RevealOnScrollState extends State<RevealOnScroll>
     if (_fired || _evaluateScheduled) return;
 
     final phase = SchedulerBinding.instance.schedulerPhase;
-    final safeNow = phase == SchedulerPhase.idle ||
+    final safeNow =
+        phase == SchedulerPhase.idle ||
         phase == SchedulerPhase.postFrameCallbacks;
     if (safeNow) {
       _evaluate();
@@ -161,10 +162,7 @@ class _RevealOnScrollState extends State<RevealOnScroll>
               ? 1.0
               : widget.startScale + (1 - widget.startScale) * t;
           final translated = Transform.translate(
-            offset: Offset(
-              widget.offsetX * (1 - t),
-              widget.offsetY * (1 - t),
-            ),
+            offset: Offset(widget.offsetX * (1 - t), widget.offsetY * (1 - t)),
             child: child,
           );
           return scale == 1.0
@@ -174,30 +172,4 @@ class _RevealOnScrollState extends State<RevealOnScroll>
       ),
     );
   }
-}
-
-/// Wraps each child in a [RevealOnScroll] whose delay grows with its index, so
-/// siblings cascade instead of snapping in together.
-///
-/// The stagger is deliberately capped: past [maxSteps] siblings it stops
-/// accumulating, so a long grid never leaves the reader waiting on the last row.
-List<Widget> staggered(
-  List<Widget> children, {
-  Duration interval = AppAnimations.stagger,
-  Duration baseDelay = Duration.zero,
-  int maxSteps = 8,
-  double offsetY = 24,
-  double offsetX = 0,
-  double startScale = 1,
-}) {
-  return [
-    for (var i = 0; i < children.length; i++)
-      RevealOnScroll(
-        delay: baseDelay + interval * (i.clamp(0, maxSteps)),
-        offsetY: offsetY,
-        offsetX: offsetX,
-        startScale: startScale,
-        child: children[i],
-      ),
-  ];
 }

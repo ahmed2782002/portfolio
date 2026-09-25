@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../core/constants/app_spacing.dart';
-import '../../core/extensions/context_extensions.dart';
-import '../animations/reveal_on_scroll.dart';
+import 'package:portfolio/core/constants/app_spacing.dart';
+import 'package:portfolio/core/extensions/context_extensions.dart';
+import 'package:portfolio/shared/animations/reveal_on_scroll.dart';
 
 /// A monospaced eyebrow — `02 / EXPERIENCE` — with a hairline that runs to the
 /// edge of the column. Repeated at the top of every section, it is the main
@@ -106,8 +106,9 @@ class SectionHeader extends StatelessWidget {
           RevealOnScroll(
             delay: const Duration(milliseconds: 120),
             child: ConstrainedBox(
-              constraints:
-                  const BoxConstraints(maxWidth: AppSpacing.maxProseWidth),
+              constraints: const BoxConstraints(
+                maxWidth: AppSpacing.maxProseWidth,
+              ),
               child: Text(
                 lead!,
                 style: type.bodyLarge.copyWith(color: colors.textSecondary),
@@ -117,7 +118,10 @@ class SectionHeader extends StatelessWidget {
         ],
         if (trailing != null && stackTrailing) ...[
           const SizedBox(height: AppSpacing.lg),
-          RevealOnScroll(delay: const Duration(milliseconds: 160), child: trailing!),
+          RevealOnScroll(
+            delay: const Duration(milliseconds: 160),
+            child: trailing!,
+          ),
         ],
       ],
     );

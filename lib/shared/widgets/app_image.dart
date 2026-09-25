@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../core/constants/app_animations.dart';
-import '../../core/extensions/context_extensions.dart';
+import 'package:portfolio/core/constants/app_animations.dart';
+import 'package:portfolio/core/extensions/context_extensions.dart';
 
 /// Asset image with a calm fade-in and a decode budget.
 ///

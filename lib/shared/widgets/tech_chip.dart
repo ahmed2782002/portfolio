@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../core/constants/app_spacing.dart';
-import '../../core/extensions/context_extensions.dart';
-import 'hover_builder.dart';
+import 'package:portfolio/core/constants/app_spacing.dart';
+import 'package:portfolio/core/extensions/context_extensions.dart';
+import 'package:portfolio/shared/widgets/hover_builder.dart';
 
 /// A technology label.
 ///
@@ -62,13 +62,13 @@ class TechChip extends StatelessWidget {
             label,
             style: (dense ? context.type.labelSmall : context.type.mono)
                 .copyWith(
-              color: Color.lerp(
-                emphasised ? tint : colors.textSecondary,
-                tint,
-                t,
-              ),
-              letterSpacing: 0.1,
-            ),
+                  color: Color.lerp(
+                    emphasised ? tint : colors.textSecondary,
+                    tint,
+                    t,
+                  ),
+                  letterSpacing: 0.1,
+                ),
           ),
         ),
       ),
