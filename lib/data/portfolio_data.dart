@@ -21,8 +21,8 @@ abstract final class PortfolioData {
         'from clean architecture to polished, responsive interfaces.',
     summary:
         'Junior Flutter Developer with 1+ year of professional experience '
-        'delivering mobile applications across consultation/service booking, '
-        'property booking, delivery, and social domains. Skilled in BLoC/Cubit state '
+        'delivering mobile applications across booking, delivery, social, '
+        'e-commerce, healthcare, and automotive domains. Skilled in BLoC/Cubit state '
         'management, Clean Architecture, and RESTful API integration, with experience '
         'building multilingual, responsive user interfaces. Comfortable moving across '
         "different app domains and adapting quickly to each project's structure "
@@ -36,7 +36,7 @@ abstract final class PortfolioData {
     stats: [
       Stat(value: '1+', label: 'year of experience'),
       Stat(value: '18+', label: 'apps in production'),
-      Stat(value: '4', label: 'product domains'),
+      Stat(value: '10+', label: 'product domains'),
     ],
     focusAreas: [
       'Flutter',
