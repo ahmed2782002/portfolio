@@ -1,6 +1,7 @@
 import 'dart:ui' show ImageFilter;
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../core/constants/app_animations.dart';
 import '../../../core/constants/app_spacing.dart';
@@ -119,7 +120,7 @@ class NavBar extends StatelessWidget {
   }
 }
 
-/// `AE ·` monogram plus the full name, which drops away on narrow layouts.
+/// Tiger mark plus the full name, which drops away on narrow layouts.
 class _Wordmark extends StatelessWidget {
   const _Wordmark({required this.onTap});
 
@@ -137,8 +138,8 @@ class _Wordmark extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
-            width: 30,
-            height: 30,
+            width: 32,
+            height: 32,
             alignment: Alignment.center,
             decoration: BoxDecoration(
               color: Color.lerp(
@@ -156,12 +157,14 @@ class _Wordmark extends StatelessWidget {
                 ),
               ],
             ),
-            child: Text(
-              'AE',
-              style: type.labelSmall.copyWith(
-                color: colors.isDark ? colors.onPrimary : AppColors.white,
-                fontWeight: FontWeight.w700,
-                fontSize: 12,
+            child: SvgPicture.asset(
+              'assets/icons/tiger.svg',
+              width: 22,
+              height: 22,
+              semanticsLabel: 'Tiger logo',
+              colorFilter: ColorFilter.mode(
+                colors.isDark ? colors.onPrimary : AppColors.white,
+                BlendMode.srcIn,
               ),
             ),
           ),
