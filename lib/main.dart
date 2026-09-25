@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'app.dart';
-import 'core/theme/theme_controller.dart';
+import 'package:portfolio/app/app.dart';
+import 'package:portfolio/core/theme/theme_controller.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

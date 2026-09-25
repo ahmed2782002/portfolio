@@ -6,7 +6,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// Starts in [ThemeMode.system] so a first-time visitor gets the theme their OS
 /// already asked for; an explicit toggle pins the choice and survives reloads.
 class ThemeController extends ChangeNotifier {
-  ThemeController._(this._mode);
+  /// Starts on [mode] without touching storage. Use [restore] in the app.
+  ThemeController({ThemeMode mode = ThemeMode.system}) : _mode = mode;
 
   static const String _storageKey = 'portfolio.theme_mode';
 
@@ -23,17 +24,17 @@ class ThemeController extends ChangeNotifier {
     } catch (error, stack) {
       debugPrint('ThemeController: could not restore theme — $error\n$stack');
     }
-    return ThemeController._(mode);
+    return ThemeController(mode: mode);
   }
 
   /// Resolves [ThemeMode.system] against the platform so the toggle always
   /// flips to the *visible* opposite.
   bool isDark(BuildContext context) => switch (_mode) {
-        ThemeMode.dark => true,
-        ThemeMode.light => false,
-        ThemeMode.system =>
-          MediaQuery.platformBrightnessOf(context) == Brightness.dark,
-      };
+    ThemeMode.dark => true,
+    ThemeMode.light => false,
+    ThemeMode.system =>
+      MediaQuery.platformBrightnessOf(context) == Brightness.dark,
+  };
 
   void toggle(BuildContext context) =>
       _set(isDark(context) ? ThemeMode.light : ThemeMode.dark);
@@ -55,8 +56,8 @@ class ThemeController extends ChangeNotifier {
   }
 
   static ThemeMode _decode(String? raw) => switch (raw) {
-        'dark' => ThemeMode.dark,
-        'light' => ThemeMode.light,
-        _ => ThemeMode.system,
-      };
+    'dark' => ThemeMode.dark,
+    'light' => ThemeMode.light,
+    _ => ThemeMode.system,
+  };
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../theme/app_colors.dart';
-import '../theme/app_typography.dart';
-import '../utils/responsive.dart';
+import 'package:portfolio/core/theme/app_colors.dart';
+import 'package:portfolio/core/theme/app_typography.dart';
+import 'package:portfolio/core/utils/responsive.dart';
 
 /// Ergonomic access to the design system. Widgets read tokens through these
 /// getters instead of reaching for hardcoded values.
