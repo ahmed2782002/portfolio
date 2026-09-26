@@ -37,11 +37,14 @@ class ProjectsSection extends StatelessWidget {
             SectionHeader(
               index: section.index,
               label: 'Selected work',
-              title: 'Four featured products,\nshipped end to end.',
+              title:
+                  '${viewModel.projects.length} featured products,\n'
+                  'from UI to API.',
               lead:
-                  'Consultation, property booking, delivery logistics and '
-                  'social — delivering production-ready Flutter applications '
-                  'for clients across the Gulf and Egyptian markets.',
+                  'Laundry, consultation, property booking, delivery '
+                  'logistics and social — client applications built at Nahr '
+                  'Development for the Gulf and Egyptian markets, plus '
+                  'YourSeat, my cinema-booking graduation project.',
             ),
             const SizedBox(height: AppSpacing.xxl),
             RevealOnScroll(

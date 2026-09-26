@@ -81,7 +81,7 @@ class HeroCopy extends StatelessWidget {
         const SizedBox(height: AppSpacing.lg),
         HeroRise(
           step(0.16, 0.60),
-          child: const RoleBadge(label: 'Flutter Developer'),
+          child: RoleBadge(label: profile.role),
         ),
         ?portrait,
         SizedBox(height: portrait != null ? 0 : AppSpacing.xl),
