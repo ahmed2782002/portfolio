@@ -9,7 +9,13 @@ abstract final class SkillsContent {
     ),
     SkillGroup(
       title: 'Mobile Development',
-      items: ['Flutter', 'Flutter Web', 'Responsive UI', 'Localization (i18n)'],
+      items: [
+        'Flutter',
+        'Flutter Web',
+        'Responsive UI',
+        'RTL/LTR Layouts',
+        'Localization (i18n)',
+      ],
     ),
     SkillGroup(title: 'State Management', items: ['Bloc', 'Cubit', 'Provider']),
     SkillGroup(

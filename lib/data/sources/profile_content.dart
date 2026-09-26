@@ -11,8 +11,9 @@ abstract final class ProfileContent {
     shortName: 'Ahmed Esam',
     role: 'Junior Flutter Developer',
     tagline:
-        'I build Flutter apps for booking, delivery and social products — '
-        'from clean architecture to polished, responsive interfaces.',
+        'I build Flutter apps for booking, delivery, social, e-commerce, '
+        'healthcare and automotive products — from clean architecture to '
+        'polished, responsive interfaces.',
     summary:
         'Junior Flutter Developer with 1+ year of professional experience '
         'delivering mobile applications across booking, delivery, social, '
@@ -29,7 +30,7 @@ abstract final class ProfileContent {
     cvFileName: 'Ahmed_Esam_Junior_Flutter_Developer_CV.pdf',
     stats: [
       Stat(value: '1+', label: 'year of experience'),
-      Stat(value: '18+', label: 'apps in production'),
+      Stat(value: '17', label: 'client apps'),
       Stat(value: '10+', label: 'product domains'),
     ],
     focusAreas: [
@@ -65,15 +66,15 @@ abstract final class ProfileContent {
     (
       title: 'Comfortable changing domains',
       body:
-          'Consultation booking, property booking, delivery and social — '
-          "adapting quickly to each project's structure and business logic.",
+          'Booking, delivery, social, e-commerce, healthcare and '
+          "automotive — adapting quickly to each project's structure and business logic.",
     ),
   ];
 
   static const Education education = Education(
-    degree: "BSc. Degree, Information Technology",
+    degree: 'BSc. Degree in Information Technology',
     institution: 'Egyptian E-Learning University (EELU)',
-    period: 'Sept. 2021 – Jun. 2025 · Grade: A+ (Graduation Project: YourSeat)',
+    period: 'Sept. 2021 – Jun. 2025 · Graduation Project: YourSeat (Grade: A+)',
     location: 'Fayoum Branch',
   );
 
