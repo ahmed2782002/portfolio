@@ -8,6 +8,7 @@ class ContactViewModel {
   final PortfolioRepository _repository;
 
   String get mailtoUri => _repository.profile.mailtoUri;
+
   String get location => _repository.profile.location;
 
   /// Direct channels first, then public profiles.

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:portfolio/core/extensions/context_extensions.dart';
 
 /// A slow breath on the status dot. Suppressed under reduced motion, and

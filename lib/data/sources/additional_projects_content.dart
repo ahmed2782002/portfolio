@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:portfolio/data/models/models.dart';
 
 /// Projects the CV names but supplies no screenshots for.

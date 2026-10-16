@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-
 import 'package:portfolio/data/models/models.dart';
 import 'package:portfolio/data/repositories/portfolio_repository.dart';
 
@@ -13,16 +12,20 @@ class ProjectsViewModel extends ChangeNotifier {
   int _shotIndex = 0;
 
   List<Project> get projects => _repository.projects;
+
   List<AdditionalProject> get additionalProjects =>
       _repository.additionalProjects;
 
   int get projectIndex => _projectIndex;
+
   int get shotIndex => _shotIndex;
 
   Project get project => projects[_projectIndex];
+
   Screenshot get screenshot => project.screenshots[_shotIndex];
 
   bool get canStepBack => _shotIndex > 0;
+
   bool get canStepForward => _shotIndex < project.screenshots.length - 1;
 
   void selectProject(int index) {

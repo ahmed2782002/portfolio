@@ -16,9 +16,13 @@ class PortfolioRepository {
   const PortfolioRepository();
 
   Profile get profile => ProfileContent.profile;
+
   List<Principle> get principles => ProfileContent.principles;
+
   Education get education => ProfileContent.education;
+
   List<Certification> get certifications => ProfileContent.certifications;
+
   List<LanguageSkill> get languages => ProfileContent.languages;
 
   List<ExperienceEntry> get experience => ExperienceContent.experience;
@@ -29,10 +33,12 @@ class PortfolioRepository {
   List<SkillGroup> get skillGroups => SkillsContent.skillGroups;
 
   List<Project> get projects => ProjectsContent.featured;
+
   List<AdditionalProject> get additionalProjects =>
       AdditionalProjectsContent.additionalProjects;
 
   List<ContactLink> get contactChannels => ContactContent.contactChannels;
+
   List<ContactLink> get socialLinks => ContactContent.socialLinks;
 
   List<ServiceOffering> get services => ServicesContent.services;

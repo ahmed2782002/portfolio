@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:portfolio/core/constants/app_spacing.dart';
 import 'package:portfolio/core/utils/link_launcher.dart';
 import 'package:portfolio/shared/animations/reveal_on_scroll.dart';

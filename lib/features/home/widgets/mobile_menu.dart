@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import 'package:portfolio/core/constants/app_animations.dart';
 import 'package:portfolio/core/extensions/context_extensions.dart';
 import 'package:portfolio/features/home/models/portfolio_section.dart';

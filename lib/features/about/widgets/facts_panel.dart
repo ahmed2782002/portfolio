@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:portfolio/core/constants/app_spacing.dart';
 import 'package:portfolio/core/extensions/context_extensions.dart';
 import 'package:portfolio/features/about/view_model/about_view_model.dart';
