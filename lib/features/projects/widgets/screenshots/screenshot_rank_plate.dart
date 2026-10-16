@@ -1,7 +1,6 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
-
 import 'package:portfolio/data/models/models.dart';
 import 'package:portfolio/shared/widgets/device/screenshot_plate.dart';
 

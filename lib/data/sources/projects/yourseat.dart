@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:portfolio/data/models/models.dart';
 
 const Project yourSeatProject = Project(

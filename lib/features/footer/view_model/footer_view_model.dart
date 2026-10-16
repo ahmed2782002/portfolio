@@ -11,7 +11,9 @@ class FooterViewModel {
   static final int _year = DateTime.now().year;
 
   Profile get profile => _repository.profile;
+
   List<ContactLink> get contactChannels => _repository.contactChannels;
+
   List<ContactLink> get socialLinks => _repository.socialLinks;
 
   String get copyright => '© $_year ${profile.fullName}. All rights reserved.';

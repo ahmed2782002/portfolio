@@ -1,5 +1,4 @@
 import 'package:flutter/widgets.dart';
-
 import 'package:portfolio/features/home/models/portfolio_section.dart';
 
 /// One [GlobalKey] per section, plus the geometry queries the scroll-spy and

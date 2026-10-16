@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-
 import 'package:portfolio/core/constants/app_animations.dart';
 import 'package:portfolio/core/di/app_scope.dart';
 import 'package:portfolio/core/utils/link_launcher.dart';

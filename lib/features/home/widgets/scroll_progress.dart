@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:portfolio/core/extensions/context_extensions.dart';
 
 /// A two-pixel reading-progress rule pinned to the top of the window.

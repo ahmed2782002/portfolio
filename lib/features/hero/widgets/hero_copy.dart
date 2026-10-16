@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:portfolio/core/constants/app_spacing.dart';
 import 'package:portfolio/core/extensions/context_extensions.dart';
 import 'package:portfolio/core/theme/app_colors.dart';
@@ -79,10 +78,7 @@ class HeroCopy extends StatelessWidget {
             ),
           ),
         const SizedBox(height: AppSpacing.lg),
-        HeroRise(
-          step(0.16, 0.60),
-          child: RoleBadge(label: profile.role),
-        ),
+        HeroRise(step(0.16, 0.60), child: RoleBadge(label: profile.role)),
         ?portrait,
         SizedBox(height: portrait != null ? 0 : AppSpacing.xl),
         HeroRise(

@@ -2,7 +2,6 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import 'package:portfolio/core/constants/app_animations.dart';
 import 'package:portfolio/data/models/models.dart';
 import 'package:portfolio/features/projects/widgets/screenshots/screenshot_rank_plate.dart';

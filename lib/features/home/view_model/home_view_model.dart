@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-
 import 'package:portfolio/data/models/models.dart';
 import 'package:portfolio/data/repositories/portfolio_repository.dart';
 import 'package:portfolio/features/home/models/portfolio_section.dart';
@@ -27,10 +26,12 @@ class HomeViewModel {
   final ValueNotifier<bool> _heroVisible = ValueNotifier(true);
 
   ValueListenable<PortfolioSection> get activeSection => _activeSection;
+
   ValueListenable<bool> get condensed => _condensed;
 
   /// 0 → top of the page, 1 → fully scrolled.
   ValueListenable<double> get progress => _progress;
+
   ValueListenable<bool> get menuOpen => _menuOpen;
 
   /// False once the hero has scrolled out of view — its looping animations
@@ -62,6 +63,7 @@ class HomeViewModel {
   }
 
   void openMenu() => _menuOpen.value = true;
+
   void closeMenu() => _menuOpen.value = false;
 
   void dispose() {

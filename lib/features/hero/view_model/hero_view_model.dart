@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/painting.dart';
-
 import 'package:portfolio/data/models/models.dart';
 import 'package:portfolio/data/repositories/portfolio_repository.dart';
 
@@ -20,7 +19,9 @@ class HeroViewModel {
   ValueListenable<Offset> get parallax => _parallax;
 
   Profile get profile => _repository.profile;
+
   List<ContactLink> get socialLinks => _repository.socialLinks;
+
   ExperienceEntry get currentRole => _repository.currentRole;
 
   bool get isCurrentlyEmployed =>
