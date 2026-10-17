@@ -9,8 +9,10 @@ Future<void> main() async {
   // Restore the visitor's theme before the first frame so the page never
   // flashes the wrong palette.
   final themeController = await ThemeController.restore();
-  //1- new projects
+  //1- new projects fixer and link apple and google
 // new skills
- // firebase
+
+ // firebase data upload
+
   runApp(PortfolioApp(themeController: themeController));
 }
